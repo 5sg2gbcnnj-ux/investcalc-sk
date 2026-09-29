@@ -21,7 +21,7 @@
       <a data-nav="fire" href="fire.html" data-i18n="nav_fire">FIRE</a>
       <a data-nav="retirement" href="retirement.html" data-i18n="nav_retirement">Dôchodok</a>
       <a data-nav="blog" href="blog.html" data-i18n="nav_blog">Blog</a>
-    </nav><div class="language-switcher" aria-label="Language switcher"><button type="button" class="lang-btn" data-lang="sk" aria-label="Slovensky" title="Slovensky" hidden>🇸🇰</button><button type="button" class="lang-btn en" data-lang="en" aria-label="English" title="English">EN</button></div>
+    </nav><div class="language-switcher" aria-label="Language switcher"><button type="button" class="lang-btn" data-lang="sk" aria-label="Slovensky" title="Slovensky" hidden>SK</button><button type="button" class="lang-btn" data-lang="en" aria-label="English" title="English">EN</button></div>
   </div>
 </header>
 
@@ -37,6 +37,11 @@
   <section class="calculator">
     <div class="panel">
       <h3 data-i18n="inputs">Vstupy</h3>
+
+      <div class="field">
+        <label for="etfSearch" data-i18n="search_etf">Hľadaj ETF podľa tickeru, ISIN alebo názvu</label>
+        <input id="etfSearch" type="search" autocomplete="off" data-i18n-placeholder="search_etf_placeholder" placeholder="Ticker, ISIN alebo názov ETF...">
+      </div>
 
       <div class="field">
         <label for="etfSelect" data-i18n="select_etf">Vyber ETF</label>
@@ -123,24 +128,29 @@
     </div>
 
     <div class="compare-select-grid">
-      <div class="field">
-        <label for="compare1">ETF 1</label>
+      <div class="field compare-picker">
+        <label for="compareSearch1">ETF 1</label>
+        <input id="compareSearch1" type="search" autocomplete="off" data-i18n-placeholder="search_etf_placeholder" placeholder="Ticker, ISIN alebo názov...">
         <select id="compare1"></select>
       </div>
-      <div class="field">
-        <label for="compare2">ETF 2</label>
+      <div class="field compare-picker">
+        <label for="compareSearch2">ETF 2</label>
+        <input id="compareSearch2" type="search" autocomplete="off" data-i18n-placeholder="search_etf_placeholder" placeholder="Ticker, ISIN alebo názov...">
         <select id="compare2"></select>
       </div>
-      <div class="field">
-        <label for="compare3">ETF 3</label>
+      <div class="field compare-picker">
+        <label for="compareSearch3">ETF 3</label>
+        <input id="compareSearch3" type="search" autocomplete="off" data-i18n-placeholder="search_etf_placeholder" placeholder="Ticker, ISIN alebo názov...">
         <select id="compare3"></select>
       </div>
-      <div class="field">
-        <label for="compare4">ETF 4</label>
+      <div class="field compare-picker">
+        <label for="compareSearch4">ETF 4</label>
+        <input id="compareSearch4" type="search" autocomplete="off" data-i18n-placeholder="search_etf_placeholder" placeholder="Ticker, ISIN alebo názov...">
         <select id="compare4"></select>
       </div>
-      <div class="field">
-        <label for="compare5">ETF 5</label>
+      <div class="field compare-picker">
+        <label for="compareSearch5">ETF 5</label>
+        <input id="compareSearch5" type="search" autocomplete="off" data-i18n-placeholder="search_etf_placeholder" placeholder="Ticker, ISIN alebo názov...">
         <select id="compare5"></select>
       </div>
     </div>
