@@ -1,21 +1,22 @@
-# InvestCalc.sk v5
+# InvestCalc.sk v6
 
-Statický web s finančnými kalkulačkami. Bez backendu, bez databázy.
+Static financial calculator website with Slovak/English language switcher.
 
-## Spustenie lokálne
+## Language switcher
 
-Python 3:
+The 🇸🇰 / 🇬🇧 buttons store the selected language in localStorage and apply it across all pages.
 
-```bash
-python -m http.server 8000
-```
+## Deploy
 
-Potom otvor `http://localhost:8000`.
+Upload the files to your static hosting provider. No backend is required for the current calculators.
 
-## Nasadenie
 
-Projekt je vhodný pre Cloudflare Pages, Netlify, Vercel alebo GitHub Pages.
+## v7 changes
+- Top navigation no longer contains Monthly investing.
+- Homepage no longer contains a Monthly investing card.
+- The investment calculator is always labeled Investment calculator / Investičná kalkulačka.
+- Language switcher uses Slovak flag + EN text.
+- ETF catalogue is ordered as the current top 20 ETFs by fund size (AUM) in the public justETF largest-ETF overview, excluding ETC products.
+- ETF comparison shows AUM and the catalog is preloaded with the largest five ETFs.
 
-## Reklamy
-
-Miesta označené `Priestor pre reklamu` sú pripravené ako sloty. Po schválení reklamnej siete sa nahradia reálnym ad kódom.
+When replacing an older GitHub Pages version, delete the old monthly.html file from the repository because v7 no longer ships that page.

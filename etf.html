@@ -14,65 +14,64 @@
   <div class="container nav">
     <a class="brand" href="index.html">Invest<span>Calc</span>.sk</a>
     <nav class="navlinks">
-      <a data-nav="investment" href="investment.html">Investičná kalkulačka</a>
-      <a data-nav="etf" href="etf.html">ETF</a>
-      <a data-nav="compound" href="compound.html">Zložené úročenie</a>
-      <a data-nav="monthly" href="monthly.html">Mesačné investovanie</a>
-      <a data-nav="inflation" href="inflation.html">Inflácia</a>
-      <a data-nav="fire" href="fire.html">FIRE</a>
-      <a data-nav="retirement" href="retirement.html">Dôchodok</a>
-      <a data-nav="blog" href="blog.html">Blog</a>
-    </nav>
+      <a data-nav="investment" href="investment.html" data-i18n="nav_investment">Investičná kalkulačka</a>
+      <a data-nav="etf" href="etf.html" data-i18n="nav_etf">ETF</a>
+      <a data-nav="compound" href="compound.html" data-i18n="nav_compound">Zložené úročenie</a>
+      <a data-nav="inflation" href="inflation.html" data-i18n="nav_inflation">Inflácia</a>
+      <a data-nav="fire" href="fire.html" data-i18n="nav_fire">FIRE</a>
+      <a data-nav="retirement" href="retirement.html" data-i18n="nav_retirement">Dôchodok</a>
+      <a data-nav="blog" href="blog.html" data-i18n="nav_blog">Blog</a>
+    </nav><div class="language-switcher" aria-label="Language switcher"><button type="button" class="lang-btn" data-lang="sk" aria-label="Slovensky" title="Slovensky">🇸🇰</button><button type="button" class="lang-btn en" data-lang="en" aria-label="English" title="English">EN</button></div>
   </div>
 </header>
 
 <main class="container">
   <section class="pagehead">
-    <span class="eyebrow">ETF</span>
-    <h1>ETF kalkulačka</h1>
-    <p>Vyber ETF zo zoznamu, automaticky načítaj TER a odhadni budúcu hodnotu portfólia.</p>
+    <span class="eyebrow" data-i18n="nav_etf">ETF</span>
+    <h1 data-i18n="page_etf_title">ETF kalkulačka</h1>
+    <p data-i18n="etf_intro">Vyber ETF zo zoznamu, automaticky načítaj TER a AUM a odhadni budúcu hodnotu portfólia.</p>
   </section>
 
-  <div class="ad">Priestor pre reklamu</div>
+  <div class="ad" data-i18n="ad_space">Priestor pre reklamu</div>
 
   <section class="calculator">
     <div class="panel">
-      <h3>Vstupy</h3>
+      <h3 data-i18n="inputs">Vstupy</h3>
 
       <div class="field">
-        <label for="etfSelect">Vyber ETF</label>
+        <label for="etfSelect" data-i18n="select_etf">Vyber ETF</label>
         <select id="etfSelect"></select>
       </div>
 
       <div class="notice" style="margin:0 0 14px">
         <strong id="selectedEtfName">–</strong><br>
-        ISIN: <span id="selectedEtfIsin">–</span> · Ticker: <span id="selectedEtfTicker">–</span> ·
-        TER: <strong id="selectedEtfTer">–</strong><br>
-        <a id="selectedEtfLink" href="#" target="_blank" rel="noopener noreferrer">Zobraziť profil na justETF ↗</a>
+        <span data-i18n="isin_label">ISIN:</span> <span id="selectedEtfIsin">–</span> · <span data-i18n="ticker_label">Ticker:</span> <span id="selectedEtfTicker">–</span> ·
+        <span data-i18n="ter_short_label">TER:</span> <strong id="selectedEtfTer">–</strong> · <span data-i18n="aum_short_label">AUM:</span> <strong id="selectedEtfAum">–</strong><br>
+        <a id="selectedEtfLink" href="#" target="_blank" rel="noopener noreferrer"><span data-i18n="justetf_profile">Zobraziť profil na justETF ↗</span></a>
       </div>
 
       <div class="field">
-        <label>Počiatočná investícia (€)</label>
+        <label data-i18n="initial_investment">Počiatočná investícia (€)</label>
         <input id="etfInitial" value="10 000" inputmode="decimal">
       </div>
 
       <div class="field">
-        <label>Mesačná investícia (€)</label>
+        <label data-i18n="monthly_investment">Mesačná investícia (€)</label>
         <input id="etfMonthly" value="300" inputmode="decimal">
       </div>
 
       <div class="field">
-        <label>Očakávaný výnos pred poplatkami (%)</label>
+        <label data-i18n="gross_return">Očakávaný výnos pred poplatkami (%)</label>
         <input id="etfRate" type="number" value="8" step="0.5">
       </div>
 
       <div class="field">
-        <label>Ročné náklady ETF – TER (%)</label>
+        <label data-i18n="ter_label">Ročné náklady ETF – TER (%)</label>
         <input id="etfFee" type="number" value="0.14" step="0.01" readonly>
       </div>
 
       <div class="field">
-        <label>Obdobie (roky)</label>
+        <label data-i18n="period_years">Obdobie (roky)</label>
         <input id="etfYears" type="number" value="20" min="1" max="60">
       </div>
     </div>
@@ -80,27 +79,27 @@
     <div>
       <div class="results">
         <div class="metric">
-          <div class="label">Bez poplatku</div>
+          <div class="label" data-i18n="without_fee">Bez poplatku</div>
           <div class="value" id="etfGross">–</div>
-          <div class="sub">Modelová hodnota</div>
+          <div class="sub" data-i18n="model_value">Modelová hodnota</div>
         </div>
 
         <div class="metric">
-          <div class="label">Po poplatku</div>
+          <div class="label" data-i18n="after_fee">Po poplatku</div>
           <div class="value" id="etfNet">–</div>
-          <div class="sub">Modelová hodnota</div>
+          <div class="sub" data-i18n="model_value">Modelová hodnota</div>
         </div>
 
         <div class="metric warn">
-          <div class="label">Rozdiel</div>
+          <div class="label" data-i18n="difference">Rozdiel</div>
           <div class="value" id="etfFeeCost">–</div>
-          <div class="sub">Potenciálny efekt nákladu</div>
+          <div class="sub" data-i18n="fee_effect">Potenciálny efekt nákladu</div>
         </div>
 
         <div class="metric">
-          <div class="label">Celkom vložené</div>
+          <div class="label" data-i18n="total_invested">Celkom vložené</div>
           <div class="value" id="etfPaid">–</div>
-          <div class="sub">Počiatočná + mesačné vklady</div>
+          <div class="sub" data-i18n="initial_plus_monthly">Počiatočná + mesačné vklady</div>
         </div>
       </div>
 
@@ -108,7 +107,7 @@
         <canvas id="etfChart"></canvas>
       </div>
 
-      <div class="notice" style="margin-top:14px">
+      <div class="notice" style="margin-top:14px" data-i18n="etf_notice">
         TER je v tomto modeli zjednodušene odpočítané od očakávaného ročného výnosu. Reálny výnos ETF je kolísavý a TER je už priebežne zahrnuté v hodnote fondu.
       </div>
     </div>
@@ -117,9 +116,9 @@
   <section class="section compare-section">
     <div class="section-head-row">
       <div>
-        <span class="eyebrow">Porovnanie</span>
-        <h2>Porovnaj 5 ETF</h2>
-        <p class="lead">Vyber päť ETF a porovnaj ich TER, základné údaje a modelovanú hodnotu pri rovnakých vstupoch.</p>
+        <span class="eyebrow" data-i18n="comparison">Porovnanie</span>
+        <h2 data-i18n="compare_5">Porovnaj 5 ETF</h2>
+        <p class="lead" data-i18n="compare_intro">Vyber päť ETF a porovnaj ich TER, základné údaje a modelovanú hodnotu pri rovnakých vstupoch.</p>
       </div>
     </div>
 
@@ -156,25 +155,26 @@
       <table class="table compare-table">
         <thead>
           <tr>
-            <th>ETF</th>
-            <th>Ticker</th>
-            <th>ISIN</th>
-            <th>TER</th>
-            <th>Výplata</th>
-            <th>Hodnota po období</th>
-            <th>Vložené</th>
-            <th>Rozdiel voči najvyššej hodnote</th>
+            <th data-i18n="nav_etf">ETF</th>
+            <th data-i18n="ticker_header">Ticker</th>
+            <th data-i18n="isin_header">ISIN</th>
+            <th data-i18n="ter_header">TER</th>
+            <th data-i18n="aum_header">AUM</th>
+            <th data-i18n="distribution">Výplata</th>
+            <th data-i18n="value_after_period">Hodnota po období</th>
+            <th data-i18n="invested">Vložené</th>
+            <th data-i18n="diff_from_highest">Rozdiel voči najvyššej hodnote</th>
           </tr>
         </thead>
         <tbody id="compareRows"></tbody>
       </table>
     </div>
 
-    <div class="notice" style="margin-top:14px">
+    <div class="notice" style="margin-top:14px" data-i18n="compare_notice">
       Porovnanie používa rovnakú počiatočnú investíciu, mesačný vklad, očakávaný výnos a horizont pre všetkých päť ETF. Rozdiel v modeli preto vzniká z rozdielneho TER, nie z rozdielnej budúcej výkonnosti indexov.
     </div>
 
-    <div class="small" style="margin-top:12px">
+    <div class="small" style="margin-top:12px" data-i18n="etf_data_notice">
       Údaje o názvoch, ISIN, tickeroch a TER v katalógu sú založené na verejných údajoch justETF a môžu sa v čase meniť.
     </div>
   </section>
