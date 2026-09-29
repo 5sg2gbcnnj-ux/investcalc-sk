@@ -40,7 +40,13 @@ function applyTranslations(){
     const key=el.dataset.i18n;
     if(I18N[lang][key]!==undefined) el.textContent=I18N[lang][key];
   });
-  document.querySelectorAll('.lang-btn').forEach(btn=>btn.classList.toggle('active',btn.dataset.lang===lang));
+  document.querySelectorAll('.lang-btn').forEach(btn=>{
+    const isCurrent = btn.dataset.lang === lang;
+    btn.classList.toggle('active', isCurrent);
+    // Show only the alternative language: EN on the Slovak version, SK on the English version.
+    btn.hidden = isCurrent;
+    btn.setAttribute('aria-hidden', isCurrent ? 'true' : 'false');
+  });
   const titles={
     home: lang==='en'?'InvestCalc.sk – investment calculators':'InvestCalc.sk – investičné kalkulačky',
     investment:lang==='en'?'Investment calculator – InvestCalc.sk':'Investičná kalkulačka – InvestCalc.sk',

@@ -20,3 +20,5 @@ Upload the files to your static hosting provider. No backend is required for the
 - ETF comparison shows AUM and the catalog is preloaded with the largest five ETFs.
 
 When replacing an older GitHub Pages version, delete the old monthly.html file from the repository because v7 no longer ships that page.
+
+Language switcher: the header shows only the alternative language button (EN on Slovak, SK on English) with a subtle blue glow.
