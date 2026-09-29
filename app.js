@@ -87,7 +87,7 @@ function initETF(){
   function calc(){
     const pv=Number(initial.value.replace(/\s/g,''))||0, pm=Number(monthly.value.replace(/\s/g,''))||0, gross=Number(rate.value)||0, f=Number(fee.value)||0, y=Number(years.value)||0;
     const sGross=investmentSchedule(pv,pm,gross,y), sNet=investmentSchedule(pv,pm,gross-f,y), endG=sGross.values.at(-1), endN=sNet.values.at(-1), paid=pv+pm*y*12;
-    document.querySelector('#etfGross').textContent=EUR(endG); document.querySelector('#etfNet').textContent=EUR(endN); document.querySelector('#etfFeeCost').textContent=EUR(endG-endN); document.querySelector('#etfPaid').textContent=EUR(paid);
+    document.querySelector('#etfGross').textContent=EUR(endG); document.querySelector('#etfNet').textContent=EUR(endN); document.querySelector('#etfFeeCost').textContent=EUR(endG-endN);
     const ctx=document.querySelector('#etfChart'); if(window.etfChart)window.etfChart.destroy(); window.etfChart=new Chart(ctx,{type:'line',data:{labels:sGross.values.map((_,i)=>`Rok ${i}`),datasets:[{label:'Bez poplatku',data:sGross.values,borderColor:'#7dc6ff',tension:.22,pointRadius:0,borderWidth:2.5},{label:'Po poplatku',data:sNet.values,borderColor:'#2f81f7',tension:.22,pointRadius:0,borderWidth:3}]},options:{plugins:{legend:{labels:{color:'#fff'}},tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${EUR(c.parsed.y)}`}}},scales:{x:{ticks:{color:'#b7c2cf'}},y:{ticks:{color:'#b7c2cf',callback:v=>NUM(v)},grid:{color:'rgba(255,255,255,.06)'}}}}});
   }
   [initial,monthly,rate,fee,years].forEach(el=>el.addEventListener('input',calc));calc();
