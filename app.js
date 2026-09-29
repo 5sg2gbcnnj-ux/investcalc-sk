@@ -49,7 +49,7 @@ function initInvestment(){
     ].map(d=>({...d,tension:.22,pointRadius:0,borderWidth:2.5,fill:false}));
     if(chart)chart.destroy();
     chart=new Chart(canvas,{type:'line',data:{labels,datasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#fff',font:{size:13}}},tooltip:{mode:'index',intersect:false,callbacks:{label:ctx=>`${ctx.dataset.label}: ${EUR(ctx.parsed.y)}`}}},scales:{x:{ticks:{color:'#b7c2cf'},grid:{color:'rgba(255,255,255,.06)'}},y:{ticks:{color:'#b7c2cf',callback:v=>NUM(v)},grid:{color:'rgba(255,255,255,.06)'}}}}});
-    document.querySelectorAll('[data-year]').forEach(x=>x.textContent=y);
+    const yearsValue=document.querySelector('#yearsValue'); if(yearsValue) yearsValue.textContent=`${y} ${y===1?'rok':(y<5?'roky':'rokov')}`; document.querySelectorAll('[data-year]').forEach(x=>x.textContent=y);
     document.querySelector('#m1').textContent=EUR(schedules[0].values.at(-1));
     document.querySelector('#m2').textContent=EUR(schedules[1].values.at(-1));
     document.querySelector('#m3').textContent=EUR(schedules[2].values.at(-1));
