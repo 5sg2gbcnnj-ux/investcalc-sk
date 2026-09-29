@@ -1,4 +1,4 @@
-# InvestCalc.sk v3
+# InvestCalc.sk v5
 
 Statický web s finančnými kalkulačkami. Bez backendu, bez databázy.
 
