@@ -1,12 +1,5 @@
-# InvestCalc.eu v13 - GA4 Events
+# InvestCalc.eu v14 – SEO + analytics
 
-Based on the current InvestCalc.eu site version, with Google Analytics 4 custom event tracking added without changing the calculator UI.
+This package keeps the existing calculators, AdSense and GA4, adds editable ETF TER, adds SEO article pages, internal links, sitemap.xml, robots.txt and 404.html.
 
-GA4 Measurement ID: G-PC1F010733
-
-Custom events:
-- calculator_opened
-- calculator_used
-- language_changed
-
-No exact money amounts are sent to GA4.
+Upload the contents of this folder to the existing GitHub repository and let Cloudflare deploy the changes.

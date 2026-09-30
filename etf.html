@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ETF kalkulačka – InvestCalc.sk</title>
-<meta name="description" content="ETF kalkulačka a porovnanie 5 ETF. Porovnaj TER, modelovanú hodnotu portfólia a vplyv nákladov." />
-<link rel="stylesheet" href="style.css">
+<meta name="description" content="ETF kalkulačka pre modelovanie očakávaného výnosu, TER, mesačných vkladov a dlhodobého rastu portfólia."> />
+<link rel="canonical" href="https://investcalc.eu/etf.html"><meta name="robots" content="index,follow,max-image-preview:large"><link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
 <script src="app.js" defer></script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3648298940482146" crossorigin="anonymous"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-PC1F010733"></script>
@@ -15,7 +15,6 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js',new Date());
 gtag('config','G-PC1F010733');
 </script>
-<script src="analytics.js" defer></script>
 </head>
 <body data-page="etf">
 <header class="topbar">
@@ -62,7 +61,7 @@ gtag('config','G-PC1F010733');
 
       <div class="field">
         <label data-i18n="ter_label">Ročné náklady ETF – TER (%)</label>
-        <input id="etfFee" type="number" value="0.14" step="0.01" readonly>
+        <input id="etfFee" type="number" value="0.14" min="0" max="10" step="0.01" inputmode="decimal">
       </div>
 
       <div class="field">

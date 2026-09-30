@@ -98,6 +98,20 @@ function applyTranslations(){
     blog:lang==='en'?'Investing blog – InvestCalc.sk':'Blog o investovaní – InvestCalc.sk'
   };
   document.title=titles[document.body.dataset.page] || document.title;
+
+  // Bilingual article content uses data-lang-content=sk/en.
+  document.querySelectorAll('[data-lang-content]').forEach(el=>{
+    el.hidden = el.dataset.langContent !== lang;
+  });
+
+  // Article pages keep language-specific SEO titles in data-title-sk/en.
+  if(document.body.dataset.page === 'article'){
+    const skTitle=document.body.dataset.titleSk;
+    const enTitle=document.body.dataset.titleEn;
+    if(skTitle || enTitle){
+      document.title = lang==='en' ? (enTitle || skTitle) : (skTitle || enTitle);
+    }
+  }
 }
 
 function initLanguageSwitcher(){
@@ -401,3 +415,20 @@ function initRetirement(){
 }
 
 document.addEventListener('DOMContentLoaded',()=>{initLanguageSwitcher();setupNav();initInvestment();initCompound();initETF();initInflation();initFire();initRetirement();});
+
+
+/* ============================================================
+   ARTICLE TRACKING
+   ============================================================ */
+(function () {
+  function track(name, params) {
+    if (typeof window.gtag !== 'function') return;
+    window.gtag('event', name, params || {});
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    if (document.body.dataset.page !== 'article') return;
+    var slug = document.body.dataset.article || 'article';
+    track('article_viewed', { article_slug: slug });
+  });
+})();
