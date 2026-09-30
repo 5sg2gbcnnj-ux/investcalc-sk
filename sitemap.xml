@@ -1,36 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-    <url>
-        <loc>https://investcalc.eu/</loc>
-    </url>
-
-    <url>
-        <loc>https://investcalc.eu/investment.html</loc>
-    </url>
-
-    <url>
-        <loc>https://investcalc.eu/etf.html</loc>
-    </url>
-
-    <url>
-        <loc>https://investcalc.eu/compound.html</loc>
-    </url>
-
-    <url>
-        <loc>https://investcalc.eu/inflation.html</loc>
-    </url>
-
-    <url>
-        <loc>https://investcalc.eu/fire.html</loc>
-    </url>
-
-    <url>
-        <loc>https://investcalc.eu/retirement.html</loc>
-    </url>
-
-    <url>
-        <loc>https://investcalc.eu/blog.html</loc>
-    </url>
-
+  <url><loc>https://investcalc.eu/</loc></url>
+  <url><loc>https://investcalc.eu/investment.html</loc></url>
+  <url><loc>https://investcalc.eu/etf.html</loc></url>
+  <url><loc>https://investcalc.eu/compound.html</loc></url>
+  <url><loc>https://investcalc.eu/inflation.html</loc></url>
+  <url><loc>https://investcalc.eu/fire.html</loc></url>
+  <url><loc>https://investcalc.eu/retirement.html</loc></url>
+  <url><loc>https://investcalc.eu/blog.html</loc></url>
 </urlset>
