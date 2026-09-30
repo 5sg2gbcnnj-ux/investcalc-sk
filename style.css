@@ -271,3 +271,13 @@ body[data-page].i18n-ready {
 .blog-filter{white-space:nowrap}
 @media(max-width:900px){.topic-link-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){.topic-link-grid{grid-template-columns:1fr}.blog-hero-copy h1{font-size:34px}.blog-hero-copy p{font-size:15px}}
+
+/* ============================================================
+   V28 SEO + PROFESSIONAL BLOG
+   ============================================================ */
+.blog-featured-badge{display:inline-flex;align-items:center;gap:7px;padding:6px 10px;border:1px solid rgba(79,166,255,.22);border-radius:999px;background:rgba(79,166,255,.06);color:#7fc0ff;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.blog-toolbar-note{color:var(--muted);font-size:13px;margin-top:10px}
+.blog-grid .article-pro{min-height:260px}
+.blog-grid .article-read{margin-top:auto}
+.content-note{padding:14px 16px;border:1px solid var(--border);border-radius:10px;background:#0d1117;color:var(--muted);font-size:13px}
+@media(max-width:900px){.topbar{position:sticky!important;top:0;z-index:5000!important}.navlinks{z-index:5001!important}}
