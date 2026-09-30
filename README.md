@@ -1,9 +1,12 @@
-# InvestCalc.eu v19
+InvestCalc.eu v26
 
-V19 keeps the existing InvestCalc.eu functionality and adds reserved, responsive ad-placement areas for future AdSense units. The existing AdSense publisher script, GA4 tracking, bilingual SK/EN system, SEO files, calculators and clean URLs are preserved.
+Professional bilingual investing blog and SEO update.
+- Responsive blog with search and category filters
+- Featured article and calculator CTAs
+- CollectionPage, BreadcrumbList and Article structured data
+- Updated sitemap with lastmod
+- Canonical URLs and meta improvements
+- GA4 and AdSense preserved
+- Mobile hamburger and smooth language behavior preserved
 
-Important: the dashed boxes are layout placeholders. They are not themselves Google ad units. Actual AdSense ad units can be placed once Google has approved the site and the required ad-unit IDs are available.
-
-Deploy by uploading the contents of this folder to the GitHub repository used by Cloudflare.
-
-V23: mobile hamburger menu trigger is permanently visible in the sticky top bar.
+Upload the contents of this folder to the Git repository.

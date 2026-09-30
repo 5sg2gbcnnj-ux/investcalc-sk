@@ -444,6 +444,46 @@ function initRetirement(){
   render();
 }
 
+
+
+/* ============================================================
+   V25 PROFESSIONAL BLOG BEHAVIOR
+   ============================================================ */
+function initBlog(){
+  const search=document.querySelector('#blogSearch');
+  const grid=document.querySelector('#blogGrid');
+  if(!search || !grid) return;
+  const cards=Array.from(grid.querySelectorAll('[data-category]'));
+  const empty=document.querySelector('#blogEmpty');
+  let category='all';
+  function updatePlaceholder(){
+    const lang=currentLang()==='en'?'en':'sk';
+    search.placeholder=search.dataset['placeholder'+(lang==='en'?'En':'Sk')] || search.placeholder;
+  }
+  function apply(){
+    const q=(search.value||'').trim().toLowerCase();
+    let shown=0;
+    cards.forEach(card=>{
+      const matchesCategory=category==='all'||card.dataset.category===category;
+      const hay=(card.dataset.search||'').toLowerCase()+' '+card.textContent.toLowerCase();
+      const matchesSearch=!q||hay.includes(q);
+      const visible=matchesCategory&&matchesSearch;
+      card.hidden=!visible;
+      if(visible) shown++;
+    });
+    if(empty) empty.hidden=shown!==0;
+  }
+  document.querySelectorAll('.blog-filter').forEach(btn=>btn.addEventListener('click',()=>{
+    category=btn.dataset.category||'all';
+    document.querySelectorAll('.blog-filter').forEach(x=>x.classList.toggle('active',x===btn));
+    apply();
+  }));
+  search.addEventListener('input',apply);
+  document.addEventListener('languagechange',()=>{updatePlaceholder();apply();});
+  updatePlaceholder();
+  apply();
+}
+
 function bootInvestCalc(){
   initLanguageSwitcher();
   setupNav();
@@ -453,6 +493,7 @@ function bootInvestCalc(){
   initInflation();
   initFire();
   initRetirement();
+  initBlog();
 }
 
 // app.js is loaded with defer on the pages, so the DOM is already parsed.
