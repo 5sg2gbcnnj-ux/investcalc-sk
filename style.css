@@ -125,7 +125,14 @@ body[data-page].i18n-ready {
 .chartbox canvas { max-width: 100% !important; }
 
 @media (max-width: 900px) {
-  .topbar { position: sticky; top: 0; }
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 1200;
+    background: rgba(5, 8, 12, .96);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
   .nav {
     min-height: 62px;
     height: 62px;
@@ -137,8 +144,17 @@ body[data-page].i18n-ready {
     gap: 10px;
   }
   .brand { font-size: 19px; }
-  .menu-toggle { display: inline-flex; order: 2; margin-left: auto; }
-  .language-switcher { order: 3; margin-left: 0; padding-left: 0; }
+  .menu-toggle {
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    order: 2;
+    margin-left: auto;
+    position: relative;
+    z-index: 1201;
+    flex: 0 0 42px;
+  }
+  .language-switcher { order: 3; margin-left: 0; padding-left: 0; position: relative; z-index: 1201; }
   .navlinks {
     display: none;
     position: absolute;
@@ -183,4 +199,9 @@ body[data-page].i18n-ready {
   .pagehead h1 { font-size: 34px; }
   .chartbox { height: 290px; }
   .chartbox canvas { height: 250px !important; }
+}
+
+/* V23: keep the hamburger trigger permanently visible in the mobile top bar. */
+@media (max-width: 900px) {
+  .topbar .menu-toggle { display: inline-flex !important; }
 }
