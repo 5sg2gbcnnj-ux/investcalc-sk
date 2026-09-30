@@ -30,7 +30,14 @@ const I18N = {
   }
 };
 
-function currentLang(){ return localStorage.getItem('investcalc_lang') || 'sk'; }
+function currentLang(){
+  try {
+    const saved = localStorage.getItem('investcalc_lang');
+    return (saved === 'en' || saved === 'sk') ? saved : 'sk';
+  } catch(e) {
+    return 'sk';
+  }
+}
 function tr(key){ const lang=currentLang(); return (I18N[lang] && I18N[lang][key]) || I18N.sk[key] || key; }
 
 /* ============================================================
