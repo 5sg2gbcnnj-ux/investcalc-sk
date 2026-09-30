@@ -1,12 +1,14 @@
-# InvestCalc.eu v16
+# InvestCalc.eu v18
 
-Fix in v16:
-- Prevents the brief Slovak-to-English flash when the saved language is English and the user navigates to another page.
-- The page stays hidden until the saved language has been applied.
-- The saved language is also applied to the HTML document language as early as possible.
-- Existing GA4, AdSense, SEO, calculators and bilingual content are retained.
+SEO-focused version with clean URLs and internal linking.
 
-Upload the files in this folder to the existing GitHub repository and overwrite the previous versions.
+Clean calculator URLs:
+- https://investcalc.eu/investment-calculator/
+- https://investcalc.eu/etf-calculator/
+- https://investcalc.eu/compound-interest-calculator/
+- https://investcalc.eu/inflation-calculator/
+- https://investcalc.eu/fire-calculator/
+- https://investcalc.eu/retirement-calculator/
+- https://investcalc.eu/blog/
 
-
-Version 17: language boot guard prevents SK -> EN flash on every page navigation.
+Legacy .html pages remain for backward compatibility and use canonical URLs pointing to the clean versions.

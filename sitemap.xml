@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://investcalc.eu/</loc></url>
-  <url><loc>https://investcalc.eu/investment.html</loc></url>
-  <url><loc>https://investcalc.eu/etf.html</loc></url>
-  <url><loc>https://investcalc.eu/compound.html</loc></url>
-  <url><loc>https://investcalc.eu/inflation.html</loc></url>
-  <url><loc>https://investcalc.eu/fire.html</loc></url>
-  <url><loc>https://investcalc.eu/retirement.html</loc></url>
-  <url><loc>https://investcalc.eu/blog.html</loc></url>
+  <url><loc>https://investcalc.eu/investment-calculator/</loc></url>
+  <url><loc>https://investcalc.eu/etf-calculator/</loc></url>
+  <url><loc>https://investcalc.eu/compound-interest-calculator/</loc></url>
+  <url><loc>https://investcalc.eu/inflation-calculator/</loc></url>
+  <url><loc>https://investcalc.eu/fire-calculator/</loc></url>
+  <url><loc>https://investcalc.eu/retirement-calculator/</loc></url>
+  <url><loc>https://investcalc.eu/blog/</loc></url>
   <url><loc>https://investcalc.eu/article-compound-interest.html</loc></url>
-  <url><loc>https://investcalc.eu/article-etf-ter.html</loc></url>
-  <url><loc>https://investcalc.eu/article-monthly-investing.html</loc></url>
-  <url><loc>https://investcalc.eu/article-inflation.html</loc></url>
-  <url><loc>https://investcalc.eu/article-fire.html</loc></url>
-  <url><loc>https://investcalc.eu/article-retirement.html</loc></url>
-  <url><loc>https://investcalc.eu/article-investment-calculator.html</loc></url>
   <url><loc>https://investcalc.eu/article-etf-calculator.html</loc></url>
+  <url><loc>https://investcalc.eu/article-etf-ter.html</loc></url>
+  <url><loc>https://investcalc.eu/article-fire.html</loc></url>
+  <url><loc>https://investcalc.eu/article-inflation.html</loc></url>
+  <url><loc>https://investcalc.eu/article-investment-calculator.html</loc></url>
+  <url><loc>https://investcalc.eu/article-monthly-investing.html</loc></url>
+  <url><loc>https://investcalc.eu/article-retirement.html</loc></url>
 </urlset>
