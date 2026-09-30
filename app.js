@@ -108,7 +108,10 @@ function applyTranslations(){
 
   // Bilingual article content uses data-lang-content=sk/en.
   document.querySelectorAll('[data-lang-content]').forEach(el=>{
-    el.hidden = el.dataset.langContent !== lang;
+    const show = el.dataset.langContent === lang;
+    el.hidden = !show;
+    el.setAttribute('aria-hidden', show ? 'false' : 'true');
+    el.style.display = show ? '' : 'none';
   });
 
   // Article pages keep language-specific SEO titles in data-title-sk/en.
@@ -150,6 +153,22 @@ function investmentSchedule(initial, monthly, annual, years){
 function setupNav(){
   const page=document.body.dataset.page;
   document.querySelectorAll('[data-nav]').forEach(a=>{if(a.dataset.nav===page)a.classList.add('active')});
+
+  document.querySelectorAll('.menu-toggle').forEach(btn=>{
+    const nav=btn.parentElement.querySelector('.navlinks');
+    if(!nav) return;
+    btn.addEventListener('click',()=>{
+      const open=btn.getAttribute('aria-expanded')==='true';
+      btn.setAttribute('aria-expanded',open?'false':'true');
+      nav.classList.toggle('menu-open',!open);
+      document.body.classList.toggle('mobile-menu-open',!open);
+    });
+    nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{
+      btn.setAttribute('aria-expanded','false');
+      nav.classList.remove('menu-open');
+      document.body.classList.remove('mobile-menu-open');
+    }));
+  });
 }
 
 function moneyInput(el){
