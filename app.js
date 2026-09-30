@@ -32,7 +32,46 @@ const I18N = {
 
 function currentLang(){ return localStorage.getItem('investcalc_lang') || 'sk'; }
 function tr(key){ const lang=currentLang(); return (I18N[lang] && I18N[lang][key]) || I18N.sk[key] || key; }
-function setLang(lang){ if(!I18N[lang]) return; localStorage.setItem('investcalc_lang',lang); applyTranslations(); document.dispatchEvent(new CustomEvent('languagechange')); }
+
+/* ============================================================
+   GA4 EVENT TRACKING
+   - Tracks calculator usage without sending exact monetary amounts.
+   - Uses a short debounce so changing several inputs creates one event.
+   ============================================================ */
+function trackGA4Event(name, params = {}) {
+  if (typeof window.gtag !== 'function') return;
+  const clean = {};
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== '') clean[key] = value;
+  });
+  window.gtag('event', name, clean);
+}
+
+function createCalculatorTracker(calculatorType, getParams) {
+  let timer = null;
+  let lastSignature = '';
+  return function scheduleTrack() {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      const params = getParams() || {};
+      const signature = JSON.stringify(params);
+      if (signature === lastSignature) return;
+      lastSignature = signature;
+      trackGA4Event('calculator_used', {
+        calculator_type: calculatorType,
+        ...params
+      });
+    }, 1200);
+  };
+}
+function setLang(lang){
+  if(!I18N[lang]) return;
+  const previous = currentLang();
+  localStorage.setItem('investcalc_lang',lang);
+  applyTranslations();
+  if(previous !== lang) trackGA4Event('language_changed', { language: lang });
+  document.dispatchEvent(new CustomEvent('languagechange'));
+}
 function applyTranslations(){
   const lang=currentLang();
   document.documentElement.lang=lang;
@@ -103,6 +142,14 @@ function initInvestment(){
   wrap.hidden=!enabled.checked;
   const canvas=document.querySelector('#investmentChart');
   let chart;
+  const trackUsage = createCalculatorTracker('investment', () => ({
+    period_years: Number(years.value) || 0,
+    monthly_investment_enabled: Boolean(enabled.checked),
+    return_scenario_1: Number(r1.value) || 0,
+    return_scenario_2: Number(r2.value) || 0,
+    return_scenario_3: Number(r3.value) || 0
+  }));
+
   function render(){
     const init=Number(initial.value.replace(/\s/g,''))||0;
     const mon=enabled.checked?(Number(monthly.value.replace(/\s/g,''))||0):0;
@@ -130,8 +177,10 @@ function initInvestment(){
       tbody.insertAdjacentHTML('beforeend',`<tr><td>${i}</td><td>${EUR(schedules[0].values[i])}</td><td>${EUR(schedules[1].values[i])}</td><td>${EUR(schedules[2].values[i])}</td><td>${EUR(schedules[0].contributed[i])}</td></tr>`)
     }
   }
-  [initial,monthly,years,r1,r2,r3].forEach(el=>el.addEventListener('input',render));
+  [initial,monthly,years,r1,r2,r3].forEach(el=>el.addEventListener('input',()=>{ render(); trackUsage(); }));
+  enabled.addEventListener('change',()=>{ render(); trackUsage(); });
   document.addEventListener('languagechange',render);
+  trackGA4Event('calculator_opened', { calculator_type: 'investment' });
   render();
 }
 
@@ -139,6 +188,10 @@ function initCompound(){
   const initial=document.querySelector('#ciInitial'); if(!initial)return;
   const rate=document.querySelector('#ciRate'), years=document.querySelector('#ciYears'), monthly=document.querySelector('#ciMonthly');
   [initial,monthly].forEach(moneyInput);
+  const trackUsage = createCalculatorTracker('compound_interest', () => ({
+    period_years: Number(years.value) || 0,
+    annual_return: Number(rate.value) || 0
+  }));
   function render(){
     const pv=Number(initial.value.replace(/\s/g,''))||0, pm=Number(monthly.value.replace(/\s/g,''))||0, r=Number(rate.value)||0, y=Number(years.value)||0;
     const s=investmentSchedule(pv,pm,r,y), total=pv+pm*y*12, end=s.values.at(-1);
@@ -146,7 +199,10 @@ function initCompound(){
     const ctx=document.querySelector('#compoundChart'); if(window.ciChart)window.ciChart.destroy();
     window.ciChart=new Chart(ctx,{type:'line',data:{labels:s.values.map((_,i)=>`${tr('year')} ${i}`),datasets:[{label:tr('final_value'),data:s.values,borderColor:'#2f81f7',tension:.22,pointRadius:0,fill:false,borderWidth:3}]},options:{plugins:{legend:{labels:{color:'#fff'}},tooltip:{callbacks:{label:c=>EUR(c.parsed.y)}}},scales:{x:{ticks:{color:'#b7c2cf'}},y:{ticks:{color:'#b7c2cf',callback:v=>NUM(v)},grid:{color:'rgba(255,255,255,.06)'}}}}});
   }
-  [initial,monthly,rate,years].forEach(el=>el.addEventListener('input',render)); document.addEventListener('languagechange',render); render();
+  [initial,monthly,rate,years].forEach(el=>el.addEventListener('input',()=>{ render(); trackUsage(); }));
+  document.addEventListener('languagechange',render);
+  trackGA4Event('calculator_opened', { calculator_type: 'compound_interest' });
+  render();
 }
 
 function initETF(){
@@ -159,6 +215,12 @@ function initETF(){
   const years=document.querySelector('#etfYears');
 
   [initial,monthly].forEach(moneyInput);
+
+  const trackUsage = createCalculatorTracker('etf', () => ({
+    period_years: Number(years.value) || 0,
+    expected_return: Number(rate.value) || 0,
+    ter: Number(fee.value) || 0
+  }));
 
   let chart;
 
@@ -293,8 +355,9 @@ function initETF(){
     requestAnimationFrame(buildETFChart);
   }
 
-  [initial,monthly,rate,fee,years].forEach(el=>el.addEventListener('input',calc));
+  [initial,monthly,rate,fee,years].forEach(el=>el.addEventListener('input',()=>{ calc(); trackUsage(); }));
   document.addEventListener('languagechange',calc);
+  trackGA4Event('calculator_opened', { calculator_type: 'etf' });
 
   calc();
   window.addEventListener('load',()=>setTimeout(calc,50),{once:true});
@@ -304,24 +367,37 @@ function initInflation(){
   const amount=document.querySelector('#inflAmount'); if(!amount)return; moneyInput(amount);
   const inf=document.querySelector('#inflRate'), years=document.querySelector('#inflYears');
   function render(){const a=Number(amount.value.replace(/\s/g,''))||0,r=Number(inf.value)||0,y=Number(years.value)||0; const real=a/Math.pow(1+r/100,y); document.querySelector('#inflFuture').textContent=EUR(real); document.querySelector('#inflLoss').textContent=EUR(a-real); document.querySelector('#inflPct').textContent=`${a?((1-real/a)*100).toFixed(1):0} %`;}
-  [amount,inf,years].forEach(el=>el.addEventListener('input',render)); document.addEventListener('languagechange',render);render();
+  [amount,inf,years].forEach(el=>el.addEventListener('input',()=>{ render(); trackUsage(); }));
+  document.addEventListener('languagechange',render);
+  trackGA4Event('calculator_opened', { calculator_type: 'inflation' });
+  render();
 }
 
 function initFire(){
   const current=document.querySelector('#fireCurrent'); if(!current)return; [current,document.querySelector('#fireMonthly'),document.querySelector('#fireExpenses')].forEach(moneyInput);
   const monthly=document.querySelector('#fireMonthly'), expenses=document.querySelector('#fireExpenses'), ret=document.querySelector('#fireReturn'), swr=document.querySelector('#fireSWR');
+  const trackUsage = createCalculatorTracker('fire', () => ({
+    expected_return: Number(ret.value) || 0,
+    withdrawal_rate: Number(swr.value) || 0
+  }));
   function render(){
     const c=Number(current.value.replace(/\s/g,''))||0, m=Number(monthly.value.replace(/\s/g,''))||0, e=Number(expenses.value.replace(/\s/g,''))||0, r=Number(ret.value)||0, s=Number(swr.value)||4; const target=e/(s/100);
     let val=c, months=0; const mr=monthlyRate(r); while(val<target && months<1200){val*=1+mr;val+=m;months++;} const years=months/12;
     document.querySelector('#fireTarget').textContent=EUR(target); document.querySelector('#fireYears').textContent=months>=1200?'—':years.toFixed(1)+' r.'; document.querySelector('#fireGap').textContent=EUR(Math.max(0,target-c));
   }
-  [current,monthly,expenses,ret,swr].forEach(el=>el.addEventListener('input',render)); document.addEventListener('languagechange',render);render();
+  [current,monthly,expenses,ret,swr].forEach(el=>el.addEventListener('input',()=>{ render(); trackUsage(); }));
+  document.addEventListener('languagechange',render);
+  trackGA4Event('calculator_opened', { calculator_type: 'fire' });
+  render();
 }
 
 function initRetirement(){
   const age=document.querySelector('#retAge'); if(!age)return; const retire=document.querySelector('#retRetire'), savings=document.querySelector('#retSavings'), monthly=document.querySelector('#retMonthly'), rate=document.querySelector('#retReturn'); moneyInput(savings);moneyInput(monthly);
   function render(){const a=Number(age.value)||0, ra=Number(retire.value)||0, s=Number(savings.value.replace(/\s/g,''))||0,m=Number(monthly.value.replace(/\s/g,''))||0,r=Number(rate.value)||0,y=Math.max(0,ra-a);const sch=investmentSchedule(s,m,r,y),end=sch.values.at(-1), income=end*.04/12;document.querySelector('#retYears').textContent=y;document.querySelector('#retValue').textContent=EUR(end);document.querySelector('#retIncome').textContent=EUR(income);}
-  [age,retire,savings,monthly,rate].forEach(el=>el.addEventListener('input',render)); document.addEventListener('languagechange',render);render();
+  [age,retire,savings,monthly,rate].forEach(el=>el.addEventListener('input',()=>{ render(); trackUsage(); }));
+  document.addEventListener('languagechange',render);
+  trackGA4Event('calculator_opened', { calculator_type: 'retirement' });
+  render();
 }
 
 document.addEventListener('DOMContentLoaded',()=>{initLanguageSwitcher();setupNav();initInvestment();initCompound();initETF();initInflation();initFire();initRetirement();});
