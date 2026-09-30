@@ -25,3 +25,6 @@ Language switcher: the header shows only the alternative language button (EN on 
 
 
 ETF selector supports search by ticker, ISIN or ETF name. The comparison allows 0–5 selected ETFs.
+
+
+ETF kalkulačka je manuálna: bez ETF katalógu, bez vyhľadávania a bez justETF integrácie. Používateľ zadáva TER, výnos a obdobie sám.

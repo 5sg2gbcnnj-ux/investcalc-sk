@@ -157,234 +157,10 @@ function initETF(){
   const rate=document.querySelector('#etfRate');
   const fee=document.querySelector('#etfFee');
   const years=document.querySelector('#etfYears');
-  const select=document.querySelector('#etfSelect');
-  const search=document.querySelector('#etfSearch');
-  const etfName=document.querySelector('#selectedEtfName');
-  const etfIsin=document.querySelector('#selectedEtfIsin');
-  const etfTicker=document.querySelector('#selectedEtfTicker');
-  const etfTer=document.querySelector('#selectedEtfTer');
-  const etfLink=document.querySelector('#selectedEtfLink');
 
   [initial,monthly].forEach(moneyInput);
 
-  const ETF_DATA={
-    SXR8:{
-      rank:1, name:'iShares Core S&P 500 UCITS ETF USD (Acc)',
-      isin:'IE00B5BMR087', ticker:'SXR8', ter:0.07, aum:136853,
-      distributionKey:'accum',
-      url:'https://www.justetf.com/en/etf-profile.html?isin=IE00B5BMR087'
-    },
-    EUNL:{
-      rank:2, name:'iShares Core MSCI World UCITS ETF USD (Acc)',
-      isin:'IE00B4L5Y983', ticker:'EUNL', ter:0.20, aum:130706,
-      distributionKey:'accum',
-      url:'https://www.justetf.com/en/etf-profile.html?isin=IE00B4L5Y983'
-    },
-    VWCE:{
-      rank:3, name:'Vanguard FTSE All-World UCITS ETF (USD) Accumulating',
-      isin:'IE00BK5BQT80', ticker:'VWCE', ter:0.14, aum:53167,
-      distributionKey:'accum',
-      url:'https://www.justetf.com/en/etf-profile.html?isin=IE00BK5BQT80'
-    },
-    VUSA:{
-      rank:4, name:'Vanguard S&P 500 UCITS ETF (USD) Distributing',
-      isin:'IE00B3XXRP09', ticker:'VUSA', ter:0.07, aum:46776,
-      distributionKey:'dist',
-      url:'https://www.justetf.com/en/etf-profile.html?isin=IE00B3XXRP09'
-    },
-    IS3N:{
-      rank:5, name:'iShares Core MSCI Emerging Markets IMI UCITS ETF (Acc)',
-      isin:'IE00BKM4GZ66', ticker:'IS3N', ter:0.18, aum:40069,
-      distributionKey:'accum',
-      url:'https://www.justetf.com/en/etf-profile.html?isin=IE00BKM4GZ66'
-    },
-    P500:{
-      rank:6, name:'Invesco S&P 500 UCITS ETF',
-      isin:'IE00B3YCGJ38', ticker:'P500', ter:0.05, aum:38689,
-      distributionKey:'accum',
-      url:'https://www.justetf.com/en/etf-profile.html?isin=IE00B3YCGJ38'
-    },
-    IUSQ:{
-      rank:7, name:'iShares MSCI All Country World UCITS ETF USD (Acc)',
-      isin:'IE00B6R52259', ticker:'IUSQ', ter:0.20, aum:32474,
-      distributionKey:'accum',
-      url:'https://www.justetf.com/en/etf-profile.html?isin=IE00B6R52259'
-    },
-    VUAA:{
-      rank:8, name:'Vanguard S&P 500 UCITS ETF (USD) Accumulating',
-      isin:'IE00BFMXXD54', ticker:'VUAA', ter:0.07, aum:32157,
-      distributionKey:'accum',
-      url:'https://www.justetf.com/en/etf-profile.html?isin=IE00BFMXXD54'
-    },
-    SXRV:{
-      rank:9, name:'iShares Nasdaq 100 UCITS ETF (Acc)',
-      isin:'IE00B53SZB19', ticker:'SXRV', ter:0.30, aum:25802,
-      distributionKey:'accum',
-      url:'https://www.justetf.com/en/etf-profile.html?isin=IE00B53SZB19'
-    },
-    VWRL:{
-      rank:10, name:'Vanguard FTSE All-World UCITS ETF (USD) Distributing',
-      isin:'IE00B3RBWM25', ticker:'VWRL', ter:0.14, aum:24065,
-      distributionKey:'dist',
-      url:'https://www.justetf.com/en/etf-profile.html?isin=IE00B3RBWM25'
-    },
-    XEON:{
-      rank:11, name:'Xtrackers II EUR Overnight Rate Swap UCITS ETF 1C',
-      isin:'LU0290358497', ticker:'XEON', ter:0.10, aum:22939,
-      distributionKey:'accum',
-      url:'https://www.justetf.com/en/etf-profile.html?isin=LU0290358497'
-    },
-    XDWD:{
-      rank:12, name:'Xtrackers MSCI World UCITS ETF 1C',
-      isin:'IE00BJ0KDQ92', ticker:'XDWD', ter:0.12, aum:21535,
-      distributionKey:'accum',
-      url:'https://www.justetf.com/en/etf-profile.html?isin=IE00BJ0KDQ92'
-    },
-    LYP6:{
-      rank:13, name:'Amundi Core Stoxx Europe 600 UCITS ETF Acc',
-      isin:'LU0908500753', ticker:'LYP6', ter:0.07, aum:20925,
-      distributionKey:'accum',
-      url:'https://www.justetf.com/en/etf-profile.html?isin=LU0908500753'
-    },
-    IUSA:{
-      rank:14, name:'iShares Core S&P 500 UCITS ETF USD (Dist)',
-      isin:'IE0031442068', ticker:'IUSA', ter:0.07, aum:20268,
-      distributionKey:'dist',
-      url:'https://www.justetf.com/en/etf-profile.html?isin=IE0031442068'
-    },
-    IUSZ:{
-      rank:15, name:'iShares Core FTSE 100 UCITS ETF GBP (Dist)',
-      isin:'IE0005042456', ticker:'IUSZ', ter:0.07, aum:18956,
-      distributionKey:'dist',
-      url:'https://www.justetf.com/en/etf-profile.html?isin=IE0005042456'
-    },
-    SPY5:{
-      rank:16, name:'State Street SPDR S&P 500 UCITS ETF USD Unhedged (Dist)',
-      isin:'IE00B6YX5C33', ticker:'SPY5', ter:0.03, aum:18811,
-      distributionKey:'dist',
-      url:'https://www.justetf.com/en/etf-profile.html?isin=IE00B6YX5C33'
-    },
-    SPPW:{
-      rank:17, name:'State Street SPDR MSCI World UCITS ETF USD Unhedged (Acc)',
-      isin:'IE00BFY0GT14', ticker:'SPPW', ter:0.12, aum:18342,
-      distributionKey:'accum',
-      url:'https://www.justetf.com/en/etf-profile.html?isin=IE00BFY0GT14'
-    },
-    QDVE:{
-      rank:18, name:'iShares S&P 500 Information Technology Sector UCITS ETF USD (Acc)',
-      isin:'IE00B3WJKG14', ticker:'QDVE', ter:0.15, aum:18119,
-      distributionKey:'accum',
-      url:'https://www.justetf.com/en/etf-profile.html?isin=IE00B3WJKG14'
-    },
-    IBC1:{
-      rank:19, name:'iShares USD Treasury Bond 0-1yr UCITS ETF (Acc)',
-      isin:'IE00BGSF1X88', ticker:'IBC1', ter:0.07, aum:17724,
-      distributionKey:'accum',
-      url:'https://www.justetf.com/en/etf-profile.html?isin=IE00BGSF1X88'
-    },
-    SPYY:{
-      rank:20, name:'State Street SPDR MSCI All Country World UCITS ETF USD Unhedged (Acc)',
-      isin:'IE00B44Z5B48', ticker:'SPYY', ter:0.12, aum:17224,
-      distributionKey:'accum',
-      url:'https://www.justetf.com/en/etf-profile.html?isin=IE00B44Z5B48'
-    }
-  };
-
-
-  function formatAUM(aum){
-    if(aum==null || isNaN(aum)) return '—';
-    if(aum >= 1000) return `€ ${(aum/1000).toFixed(1)} bn`;
-    return `€ ${Number(aum).toLocaleString(currentLang()==='en' ? 'en-IE' : 'sk-SK',{maximumFractionDigits:0})} m`;
-  }
-
-  const allETFKeys=Object.keys(ETF_DATA);
-
-  function searchText(key){
-    const item=ETF_DATA[key];
-    return `${key} ${item.ticker} ${item.isin} ${item.name}`.toLowerCase();
-  }
-
-  function matchingKeys(query){
-    const q=(query||'').trim().toLowerCase();
-    if(!q)return allETFKeys;
-    const exact=[];
-    const contains=[];
-    allETFKeys.forEach(key=>{
-      const item=ETF_DATA[key];
-      const ticker=String(item.ticker||'').toLowerCase();
-      const isin=String(item.isin||'').toLowerCase();
-      if(ticker===q || isin===q){
-        exact.push(key);
-      }else if(searchText(key).includes(q)){
-        contains.push(key);
-      }
-    });
-    return exact.concat(contains);
-  }
-
-  function optionLabel(key){
-    const item=ETF_DATA[key];
-    return `${item.ticker} – ${item.name} | TER ${item.ter.toFixed(2)} % | AUM ${formatAUM(item.aum)}`;
-  }
-
-  function fillSelect(target, query, selectedValue, includeNone){
-    if(!target)return;
-    const matches=matchingKeys(query);
-    target.innerHTML='';
-
-    if(includeNone){
-      const none=document.createElement('option');
-      none.value='';
-      none.textContent=tr('no_etf_selected');
-      target.appendChild(none);
-    }
-
-    matches.forEach(key=>{
-      const option=document.createElement('option');
-      option.value=key;
-      option.textContent=optionLabel(key);
-      target.appendChild(option);
-    });
-
-    if(selectedValue && matches.includes(selectedValue)){
-      target.value=selectedValue;
-    }else if(includeNone){
-      target.value='';
-    }else if(matches.length){
-      target.value=matches[0];
-    }
-  }
-
-  function setSearchPlaceholder(el){
-    if(el) el.placeholder=tr('search_etf_placeholder');
-  }
-
-  function updateETFMeta(){
-    const item=ETF_DATA[select.value];
-    if(!item){
-      fee.value='';
-      etfName.textContent='—';
-      etfIsin.textContent='—';
-      etfTicker.textContent='—';
-      etfTer.textContent='—';
-      const etfAum=document.querySelector('#selectedEtfAum');
-      if(etfAum)etfAum.textContent='—';
-      etfLink.href='#';
-      return;
-    }
-
-    fee.value=item.ter.toFixed(2);
-    etfName.textContent=item.name;
-    etfIsin.textContent=item.isin;
-    etfTicker.textContent=item.ticker;
-    etfTer.textContent=`${item.ter.toFixed(2)} %`;
-    const etfAum=document.querySelector('#selectedEtfAum');
-    if(etfAum) etfAum.textContent=formatAUM(item.aum);
-    etfLink.href=item.url;
-  }
-
   let chart;
-  let compareChart;
 
   function readInputs(){
     const pv=Number(initial.value.replace(/\s/g,''))||0;
@@ -395,243 +171,130 @@ function initETF(){
     return {pv,pm,gross,f,y};
   }
 
-  function calculateETF(key, inputs){
-    const item=ETF_DATA[key];
-    if(!item)return null;
-    const sGross=investmentSchedule(inputs.pv,inputs.pm,inputs.gross,inputs.y);
-    const sNet=investmentSchedule(inputs.pv,inputs.pm,inputs.gross-item.ter,inputs.y);
-    const endGross=sGross.values.at(-1);
-    const endNet=sNet.values.at(-1);
-    const paid=inputs.pv+inputs.pm*inputs.y*12;
-    return {item,sGross,sNet,endGross,endNet,paid,feeCost:endGross-endNet};
-  }
-
   function calc(){
     const inputs=readInputs();
-    const result=calculateETF(select.value,inputs);
 
-    if(!result){
-      document.querySelector('#etfGross').textContent='—';
-      document.querySelector('#etfNet').textContent='—';
-      document.querySelector('#etfFeeCost').textContent='—';
-      document.querySelector('#etfPaid').textContent='—';
-      if(chart){chart.destroy();chart=null;}
-      renderComparison(inputs);
-      return;
-    }
+    const grossSchedule=investmentSchedule(
+      inputs.pv,
+      inputs.pm,
+      inputs.gross,
+      inputs.y
+    );
 
-    document.querySelector('#etfGross').textContent=EUR(result.endGross);
-    document.querySelector('#etfNet').textContent=EUR(result.endNet);
-    document.querySelector('#etfFeeCost').textContent=EUR(result.feeCost);
-    document.querySelector('#etfPaid').textContent=EUR(result.paid);
+    const netSchedule=investmentSchedule(
+      inputs.pv,
+      inputs.pm,
+      inputs.gross-inputs.f,
+      inputs.y
+    );
+
+    const endGross=grossSchedule.values.at(-1);
+    const endNet=netSchedule.values.at(-1);
+    const paid=inputs.pv + inputs.pm * inputs.y * 12;
+    const feeCost=endGross-endNet;
+
+    document.querySelector('#etfGross').textContent=EUR(endGross);
+    document.querySelector('#etfNet').textContent=EUR(endNet);
+    document.querySelector('#etfFeeCost').textContent=EUR(feeCost);
+    document.querySelector('#etfPaid').textContent=EUR(paid);
 
     const ctx=document.querySelector('#etfChart');
-    if(ctx){
-      if(chart){
-        chart.destroy();
-        chart=null;
+    if(!ctx)return;
+
+    if(chart){
+      chart.destroy();
+      chart=null;
+    }
+
+    const buildETFChart=()=>{
+      if(typeof window.Chart==='undefined'){
+        setTimeout(buildETFChart,250);
+        return;
       }
 
-      const buildETFChart=()=>{
-        if(typeof window.Chart==='undefined'){
-          setTimeout(buildETFChart,250);
-          return;
-        }
+      const parent=ctx.parentElement;
+      if(parent){
+        const h=Math.max(280,parent.clientHeight-20);
+        ctx.style.height=h+'px';
+      }
 
-        const parent=ctx.parentElement;
-        if(parent){
-          const h=Math.max(260,parent.clientHeight-22);
-          ctx.style.height=h+'px';
-          ctx.height=Math.round(h*window.devicePixelRatio);
-          ctx.width=Math.round(parent.clientWidth*window.devicePixelRatio);
-        }
+      Chart.defaults.font.family='Arial, ui-sans-serif, system-ui, sans-serif';
+      Chart.defaults.color='#FFFFFF';
 
-        Chart.defaults.font.family='Arial, ui-sans-serif, system-ui, sans-serif';
-        Chart.defaults.color='#FFFFFF';
-
-        chart=new Chart(ctx,{
-          type:'line',
-          data:{
-            labels:result.sGross.values.map((_,i)=>`${tr('year')} ${i}`),
-            datasets:[
-              {
-                label:tr('without_fee'),
-                data:result.sGross.values,
-                borderColor:'#7dc6ff',
-                backgroundColor:'rgba(125,198,255,.08)',
-                tension:.22,
-                pointRadius:2,
-                pointHoverRadius:5,
-                pointBackgroundColor:'#7dc6ff',
-                pointBorderColor:'#7dc6ff',
-                borderWidth:2.5,
-                fill:false
-              },
-              {
-                label:tr('after_fee'),
-                data:result.sNet.values,
-                borderColor:'#2f81f7',
-                backgroundColor:'rgba(47,129,247,.08)',
-                tension:.22,
-                pointRadius:2,
-                pointHoverRadius:5,
-                pointBackgroundColor:'#2f81f7',
-                pointBorderColor:'#2f81f7',
-                borderWidth:3,
-                fill:false
-              }
-            ]
-          },
-          options:{
-            responsive:true,
-            maintainAspectRatio:false,
-            animation:false,
-            interaction:{mode:'index',intersect:false},
-            plugins:{
-              legend:{
-                display:true,
-                labels:{
-                  color:'#FFFFFF',
-                  font:{family:'Arial, sans-serif',size:13,weight:'700'},
-                  usePointStyle:true,
-                  boxWidth:10,
-                  padding:18
-                }
-              },
-              tooltip:{
-                callbacks:{
-                  label:c=>`${c.dataset.label}: ${EUR(c.parsed.y)}`
-                }
+      chart=new Chart(ctx,{
+        type:'line',
+        data:{
+          labels:grossSchedule.values.map((_,i)=>`${tr('year')} ${i}`),
+          datasets:[
+            {
+              label:tr('without_fee'),
+              data:grossSchedule.values,
+              borderColor:'#7dc6ff',
+              backgroundColor:'rgba(125,198,255,.08)',
+              tension:.22,
+              pointRadius:2,
+              pointHoverRadius:5,
+              pointBackgroundColor:'#7dc6ff',
+              pointBorderColor:'#7dc6ff',
+              borderWidth:3,
+              fill:false
+            },
+            {
+              label:tr('after_fee'),
+              data:netSchedule.values,
+              borderColor:'#2f81f7',
+              backgroundColor:'rgba(47,129,247,.08)',
+              tension:.22,
+              pointRadius:2,
+              pointHoverRadius:5,
+              pointBackgroundColor:'#2f81f7',
+              pointBorderColor:'#2f81f7',
+              borderWidth:3,
+              fill:false
+            }
+          ]
+        },
+        options:{
+          responsive:true,
+          maintainAspectRatio:false,
+          animation:false,
+          interaction:{mode:'index',intersect:false},
+          plugins:{
+            legend:{
+              display:true,
+              labels:{
+                color:'#FFFFFF',
+                font:{family:'Arial, sans-serif',size:13,weight:'700'},
+                usePointStyle:true,
+                boxWidth:10,
+                padding:18
               }
             },
-            scales:{
-              x:{
-                ticks:{color:'#FFFFFF'},
-                grid:{color:'rgba(255,255,255,.06)'}
-              },
-              y:{
-                ticks:{color:'#FFFFFF',callback:v=>NUM(v)},
-                grid:{color:'rgba(255,255,255,.06)'}
+            tooltip:{
+              callbacks:{
+                label:c=>`${c.dataset.label}: ${EUR(c.parsed.y)}`
               }
             }
+          },
+          scales:{
+            x:{
+              ticks:{color:'#FFFFFF'},
+              grid:{color:'rgba(255,255,255,.06)'}
+            },
+            y:{
+              ticks:{color:'#FFFFFF',callback:v=>NUM(v)},
+              grid:{color:'rgba(255,255,255,.06)'}
+            }
           }
-        });
-      };
+        }
+      });
+    };
 
-      requestAnimationFrame(buildETFChart);
-    }
-
-    renderComparison(inputs);
+    requestAnimationFrame(buildETFChart);
   }
 
-  function renderComparison(inputs){
-    const keys=compareSelects.map(s=>s.value).filter(Boolean);
-    const results=keys.map(key=>calculateETF(key,inputs)).filter(Boolean);
-    const rows=document.querySelector('#compareRows');
-
-    if(rows){
-      rows.innerHTML='';
-      if(!results.length){
-        rows.innerHTML=`<tr><td colspan="9">${tr('no_etf_selected')}</td></tr>`;
-      }else{
-        const maxValue=Math.max(...results.map(r=>r.endNet));
-        results.forEach(result=>{
-          const diff=maxValue-result.endNet;
-          const rowEl=document.createElement('tr');
-          rowEl.innerHTML=`
-            <td><a href="${result.item.url}" target="_blank" rel="noopener noreferrer">${result.item.name}</a></td>
-            <td>${result.item.ticker}</td>
-            <td>${result.item.isin}</td>
-            <td>${result.item.ter.toFixed(2)} %</td>
-            <td>${formatAUM(result.item.aum)}</td>
-            <td>${tr(result.item.distributionKey || 'accum')}</td>
-            <td>${EUR(result.endNet)}</td>
-            <td>${EUR(result.paid)}</td>
-            <td>${diff === 0 ? tr('no_difference') : '−' + EUR(diff)}</td>
-          `;
-          rows.appendChild(rowEl);
-        });
-      }
-    }
-
-    const ctx=document.querySelector('#etfCompareChart');
-    if(!ctx)return;
-    if(compareChart)compareChart.destroy();
-
-    if(!results.length){
-      compareChart=null;
-      return;
-    }
-
-    const datasets=results.map((result,i)=>({
-      label:result.item.ticker,
-      data:result.sNet.values,
-      borderColor:['#2f81f7','#7dc6ff','#ff5b6e','#16c784','#ffd166'][i%5],
-      backgroundColor:'transparent',
-      tension:.22,pointRadius:0,borderWidth:2.5,fill:false
-    }));
-
-    compareChart=new Chart(ctx,{
-      type:'line',
-      data:{labels:results[0].sNet.values.map((_,i)=>`${tr('year')} ${i}`),datasets},
-      options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{labels:{color:'#ffffff',font:{size:13}}},tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${EUR(c.parsed.y)}`}}},scales:{x:{ticks:{color:'#b7c2cf'},grid:{color:'rgba(255,255,255,.06)'}},y:{ticks:{color:'#b7c2cf',callback:v=>NUM(v)},grid:{color:'rgba(255,255,255,.06)'}}}}
-    });
-  }
-
-  // Main ETF search + select
-  function refreshMainList(){
-    const previous=select.value;
-    fillSelect(select,search?search.value:'',previous,false);
-    updateETFMeta();
-  }
-
-  // Comparison search + select pairs
-  const compareSelects=[1,2,3,4,5].map(i=>document.querySelector(`#compare${i}`)).filter(Boolean);
-  const compareSearches=[1,2,3,4,5].map(i=>document.querySelector(`#compareSearch${i}`)).filter(Boolean);
-
-  compareSelects.forEach((s,i)=>{
-    fillSelect(s,compareSearches[i] ? compareSearches[i].value : '', '', true);
-  });
-
-  // Start with two selected ETFs; remaining three are empty.
-  const defaults=['SXR8','EUNL','','',''];
-  defaults.forEach((key,i)=>{
-    if(compareSelects[i]) compareSelects[i].value=key;
-  });
-
-  refreshMainList();
-  updateETFMeta();
-
-  if(search){
-    search.addEventListener('input',()=>{
-      refreshMainList();
-      calc();
-    });
-  }
-
-  select.addEventListener('change',()=>{
-    updateETFMeta();
-    calc();
-  });
-
-  compareSearches.forEach((searchEl,i)=>{
-    searchEl.addEventListener('input',()=>{
-      const selected=compareSelects[i].value;
-      fillSelect(compareSelects[i],searchEl.value,selected,true);
-      renderComparison(readInputs());
-    });
-  });
-
-  compareSelects.forEach(s=>s.addEventListener('change',()=>renderComparison(readInputs())));
   [initial,monthly,rate,fee,years].forEach(el=>el.addEventListener('input',calc));
-  document.addEventListener('languagechange',()=>{
-    setSearchPlaceholder(search);
-    compareSearches.forEach(setSearchPlaceholder);
-    refreshMainList();
-    compareSelects.forEach((s,i)=>fillSelect(s,compareSearches[i]?compareSearches[i].value:'',s.value,true));
-    updateETFMeta();
-    calc();
-  });
+  document.addEventListener('languagechange',calc);
 
   calc();
   window.addEventListener('load',()=>setTimeout(calc,50),{once:true});

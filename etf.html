@@ -29,7 +29,7 @@
   <section class="pagehead">
     <span class="eyebrow" data-i18n="nav_etf">ETF</span>
     <h1 data-i18n="page_etf_title">ETF kalkulačka</h1>
-    <p data-i18n="etf_intro">Vyber ETF zo zoznamu, automaticky načítaj TER a AUM a odhadni budúcu hodnotu portfólia.</p>
+    <p data-i18n="etf_intro">Zadaj očakávaný výnos, TER a obdobie a odhadni budúcu hodnotu ETF portfólia.</p>
   </section>
 
   <div class="ad" data-i18n="ad_space">Priestor pre reklamu</div>
@@ -37,24 +37,6 @@
   <section class="calculator">
     <div class="panel">
       <h3 data-i18n="inputs">Vstupy</h3>
-
-      <div class="field">
-        <label for="etfSearch" data-i18n="search_etf">Hľadaj ETF podľa tickeru, ISIN alebo názvu</label>
-        <input id="etfSearch" type="search" autocomplete="off" data-i18n-placeholder="search_etf_placeholder" placeholder="Ticker, ISIN alebo názov ETF...">
-      </div>
-
-      <div class="field">
-        <label for="etfSelect" data-i18n="select_etf">Vyber ETF</label>
-        <select id="etfSelect"></select>
-      </div>
-
-      <div class="notice" style="margin:0 0 14px">
-        <strong id="selectedEtfName">–</strong><br>
-        <span data-i18n="isin_label">ISIN:</span> <span id="selectedEtfIsin">–</span> · <span data-i18n="ticker_label">Ticker:</span> <span id="selectedEtfTicker">–</span> ·
-        <span data-i18n="ter_short_label">TER:</span> <strong id="selectedEtfTer">–</strong> · <span data-i18n="aum_short_label">AUM:</span> <strong id="selectedEtfAum">–</strong><br>
-        <a id="selectedEtfLink" href="#" target="_blank" rel="noopener noreferrer"><span data-i18n="justetf_profile">Zobraziť profil na justETF ↗</span></a>
-      </div>
-
       <div class="field">
         <label data-i18n="initial_investment">Počiatočná investícia (€)</label>
         <input id="etfInitial" value="10 000" inputmode="decimal">
@@ -115,77 +97,6 @@
       <div class="notice" style="margin-top:14px" data-i18n="etf_notice">
         TER je v tomto modeli zjednodušene odpočítané od očakávaného ročného výnosu. Reálny výnos ETF je kolísavý a TER je už priebežne zahrnuté v hodnote fondu.
       </div>
-    </div>
-  </section>
-
-  <section class="section compare-section">
-    <div class="section-head-row">
-      <div>
-        <span class="eyebrow" data-i18n="comparison">Porovnanie</span>
-        <h2 data-i18n="compare_5">Porovnaj 5 ETF</h2>
-        <p class="lead" data-i18n="compare_intro">Vyber päť ETF a porovnaj ich TER, základné údaje a modelovanú hodnotu pri rovnakých vstupoch.</p>
-      </div>
-    </div>
-
-    <div class="compare-select-grid">
-      <div class="field compare-picker">
-        <label for="compareSearch1">ETF 1</label>
-        <input id="compareSearch1" type="search" autocomplete="off" data-i18n-placeholder="search_etf_placeholder" placeholder="Ticker, ISIN alebo názov...">
-        <select id="compare1"></select>
-      </div>
-      <div class="field compare-picker">
-        <label for="compareSearch2">ETF 2</label>
-        <input id="compareSearch2" type="search" autocomplete="off" data-i18n-placeholder="search_etf_placeholder" placeholder="Ticker, ISIN alebo názov...">
-        <select id="compare2"></select>
-      </div>
-      <div class="field compare-picker">
-        <label for="compareSearch3">ETF 3</label>
-        <input id="compareSearch3" type="search" autocomplete="off" data-i18n-placeholder="search_etf_placeholder" placeholder="Ticker, ISIN alebo názov...">
-        <select id="compare3"></select>
-      </div>
-      <div class="field compare-picker">
-        <label for="compareSearch4">ETF 4</label>
-        <input id="compareSearch4" type="search" autocomplete="off" data-i18n-placeholder="search_etf_placeholder" placeholder="Ticker, ISIN alebo názov...">
-        <select id="compare4"></select>
-      </div>
-      <div class="field compare-picker">
-        <label for="compareSearch5">ETF 5</label>
-        <input id="compareSearch5" type="search" autocomplete="off" data-i18n-placeholder="search_etf_placeholder" placeholder="Ticker, ISIN alebo názov...">
-        <select id="compare5"></select>
-      </div>
-    </div>
-
-    <div class="compare-chart-wrap">
-      <div class="chartbox compare-chartbox">
-        <canvas id="etfCompareChart"></canvas>
-      </div>
-    </div>
-
-    <div class="tablewrap">
-      <table class="table compare-table">
-        <thead>
-          <tr>
-            <th data-i18n="nav_etf">ETF</th>
-            <th data-i18n="ticker_header">Ticker</th>
-            <th data-i18n="isin_header">ISIN</th>
-            <th data-i18n="ter_header">TER</th>
-            <th data-i18n="aum_header">AUM</th>
-            <th data-i18n="distribution">Výplata</th>
-            <th data-i18n="value_after_period">Hodnota po období</th>
-            <th data-i18n="invested">Vložené</th>
-            <th data-i18n="diff_from_highest">Rozdiel voči najvyššej hodnote</th>
-          </tr>
-        </thead>
-        <tbody id="compareRows"></tbody>
-      </table>
-    </div>
-
-    <div class="notice" style="margin-top:14px" data-i18n="compare_notice">
-      Porovnanie používa rovnakú počiatočnú investíciu, mesačný vklad, očakávaný výnos a horizont pre všetkých päť ETF. Rozdiel v modeli preto vzniká z rozdielneho TER, nie z rozdielnej budúcej výkonnosti indexov.
-    </div>
-
-    <div class="small" style="margin-top:12px" data-i18n="etf_data_notice">
-      Údaje o názvoch, ISIN, tickeroch a TER v katalógu sú založené na verejných údajoch justETF a môžu sa v čase meniť.
     </div>
   </section>
 </main>
