@@ -112,6 +112,10 @@ function applyTranslations(){
       document.title = lang==='en' ? (enTitle || skTitle) : (skTitle || enTitle);
     }
   }
+
+  // Reveal the page only after the saved language has been applied.
+  document.body.classList.add('i18n-ready');
+  document.documentElement.classList.remove('i18n-boot');
 }
 
 function initLanguageSwitcher(){
@@ -414,7 +418,24 @@ function initRetirement(){
   render();
 }
 
-document.addEventListener('DOMContentLoaded',()=>{initLanguageSwitcher();setupNav();initInvestment();initCompound();initETF();initInflation();initFire();initRetirement();});
+function bootInvestCalc(){
+  initLanguageSwitcher();
+  setupNav();
+  initInvestment();
+  initCompound();
+  initETF();
+  initInflation();
+  initFire();
+  initRetirement();
+}
+
+// app.js is loaded with defer on the pages, so the DOM is already parsed.
+// Start immediately to prevent any visible SK -> EN language flash during navigation.
+if(document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootInvestCalc, {once:true});
+} else {
+  bootInvestCalc();
+}
 
 
 /* ============================================================
