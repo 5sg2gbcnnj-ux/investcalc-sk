@@ -56,3 +56,32 @@ body[data-page] {
 body[data-page].i18n-ready {
   visibility: visible;
 }
+
+/* ==========================================================
+   V19 AD PLACEMENT STYLING
+   Reserved areas for AdSense units. Actual ads are managed
+   by Google; these containers keep the layout stable.
+   ========================================================== */
+.ad {
+  min-height: 90px;
+  margin: 24px 0;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px dashed rgba(47,129,247,.35);
+  border-radius: 12px;
+  background: linear-gradient(180deg,rgba(11,16,22,.82),rgba(7,10,14,.82));
+  color: #697787;
+  font-size: 11px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.ad-top { min-height: 100px; }
+.ad-mid { min-height: 180px; }
+.ad-bottom { min-height: 100px; }
+@media (max-width: 720px) {
+  .ad { margin: 18px 0; min-height: 80px; }
+  .ad-mid { min-height: 140px; }
+}

@@ -1,14 +1,7 @@
-# InvestCalc.eu v18
+# InvestCalc.eu v19
 
-SEO-focused version with clean URLs and internal linking.
+V19 keeps the existing InvestCalc.eu functionality and adds reserved, responsive ad-placement areas for future AdSense units. The existing AdSense publisher script, GA4 tracking, bilingual SK/EN system, SEO files, calculators and clean URLs are preserved.
 
-Clean calculator URLs:
-- https://investcalc.eu/investment-calculator/
-- https://investcalc.eu/etf-calculator/
-- https://investcalc.eu/compound-interest-calculator/
-- https://investcalc.eu/inflation-calculator/
-- https://investcalc.eu/fire-calculator/
-- https://investcalc.eu/retirement-calculator/
-- https://investcalc.eu/blog/
+Important: the dashed boxes are layout placeholders. They are not themselves Google ad units. Actual AdSense ad units can be placed once Google has approved the site and the required ad-unit IDs are available.
 
-Legacy .html pages remain for backward compatibility and use canonical URLs pointing to the clean versions.
+Deploy by uploading the contents of this folder to the GitHub repository used by Cloudflare.
