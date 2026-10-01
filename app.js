@@ -171,9 +171,48 @@ function setupNav(){
   });
 }
 
+function parseMoney(value){
+  let v=String(value ?? '').trim().replace(/[\s\u00A0\u202F]/g,'');
+  if(!v) return 0;
+
+  // Accept both SK and EN user input formats, for example:
+  // 50 000, 50,000, 50.000 and 50000.
+  // A single separator followed by exactly three digits is treated as a
+  // thousands separator. A trailing 1-2 digit group is treated as decimals.
+  const commaCount=(v.match(/,/g)||[]).length;
+  const dotCount=(v.match(/\./g)||[]).length;
+
+  if(commaCount && dotCount){
+    const lastComma=v.lastIndexOf(',');
+    const lastDot=v.lastIndexOf('.');
+    const decimalSep=lastComma>lastDot ? ',' : '.';
+    const groupingSep=decimalSep===',' ? '.' : ',';
+    v=v.split(groupingSep).join('');
+    const parts=v.split(decimalSep);
+    if(parts.length===2 && parts[1].length<=2) v=parts[0]+'.'+parts[1];
+    else v=parts.join('');
+  }else if(commaCount || dotCount){
+    const sep=commaCount ? ',' : '.';
+    const parts=v.split(sep);
+    if(parts.length===2){
+      const decimals=parts[1].length;
+      v=decimals===3 ? parts.join('') : (decimals<=2 ? parts[0]+'.'+parts[1] : parts.join(''));
+    }else{
+      v=parts.join('');
+    }
+  }
+
+  v=v.replace(/[^0-9.-]/g,'');
+  const n=Number(v);
+  return Number.isFinite(n) ? n : 0;
+}
+
 function moneyInput(el){
   if(!el)return;
-  el.addEventListener('blur',()=>{let v=el.value.replace(/\s/g,'').replace(',','.'); if(v!==''&&!isNaN(v)) el.value=NUM(Number(v));});
+  el.addEventListener('blur',()=>{
+    if(el.value.trim()==='') return;
+    el.value=NUM(parseMoney(el.value));
+  });
 }
 
 function initInvestment(){
@@ -195,8 +234,8 @@ function initInvestment(){
   }));
 
   function render(){
-    const init=Number(initial.value.replace(/\s/g,''))||0;
-    const mon=enabled.checked?(Number(monthly.value.replace(/\s/g,''))||0):0;
+    const init=parseMoney(initial.value);
+    const mon=enabled.checked?(parseMoney(monthly.value)):0;
     const y=Number(years.value), rates=[Number(r1.value),Number(r2.value),Number(r3.value)];
     const schedules=rates.map(rate=>investmentSchedule(init,mon,rate,y));
     const labels=Array.from({length:y+1},(_,i)=>`${tr('year')} ${i}`);
@@ -237,7 +276,7 @@ function initCompound(){
     annual_return: Number(rate.value) || 0
   }));
   function render(){
-    const pv=Number(initial.value.replace(/\s/g,''))||0, pm=Number(monthly.value.replace(/\s/g,''))||0, r=Number(rate.value)||0, y=Number(years.value)||0;
+    const pv=parseMoney(initial.value), pm=parseMoney(monthly.value), r=Number(rate.value)||0, y=Number(years.value)||0;
     const s=investmentSchedule(pv,pm,r,y), total=pv+pm*y*12, end=s.values.at(-1);
     document.querySelector('#ciFinal').textContent=EUR(end); document.querySelector('#ciPaid').textContent=EUR(total); document.querySelector('#ciGain').textContent=EUR(end-total); document.querySelector('#ciMultiple').textContent=(total? (end/total).toFixed(2)+'x':'0x');
     const ctx=document.querySelector('#compoundChart'); if(window.ciChart)window.ciChart.destroy();
@@ -269,8 +308,8 @@ function initETF(){
   let chart;
 
   function readInputs(){
-    const pv=Number(initial.value.replace(/\s/g,''))||0;
-    const pm=Number(monthly.value.replace(/\s/g,''))||0;
+    const pv=parseMoney(initial.value);
+    const pm=parseMoney(monthly.value);
     const gross=Number(rate.value)||0;
     const f=Number(fee.value)||0;
     const y=Math.max(1,Math.min(60,Number(years.value)||1));
@@ -410,7 +449,7 @@ function initETF(){
 function initInflation(){
   const amount=document.querySelector('#inflAmount'); if(!amount)return; moneyInput(amount);
   const inf=document.querySelector('#inflRate'), years=document.querySelector('#inflYears');
-  function render(){const a=Number(amount.value.replace(/\s/g,''))||0,r=Number(inf.value)||0,y=Number(years.value)||0; const real=a/Math.pow(1+r/100,y); document.querySelector('#inflFuture').textContent=EUR(real); document.querySelector('#inflLoss').textContent=EUR(a-real); document.querySelector('#inflPct').textContent=`${a?((1-real/a)*100).toFixed(1):0} %`;}
+  function render(){const a=parseMoney(amount.value),r=Number(inf.value)||0,y=Number(years.value)||0; const real=a/Math.pow(1+r/100,y); document.querySelector('#inflFuture').textContent=EUR(real); document.querySelector('#inflLoss').textContent=EUR(a-real); document.querySelector('#inflPct').textContent=`${a?((1-real/a)*100).toFixed(1):0} %`;}
   [amount,inf,years].forEach(el=>el.addEventListener('input',()=>{ render(); trackUsage(); }));
   document.addEventListener('languagechange',render);
   trackGA4Event('calculator_opened', { calculator_type: 'inflation' });
@@ -425,7 +464,7 @@ function initFire(){
     withdrawal_rate: Number(swr.value) || 0
   }));
   function render(){
-    const c=Number(current.value.replace(/\s/g,''))||0, m=Number(monthly.value.replace(/\s/g,''))||0, e=Number(expenses.value.replace(/\s/g,''))||0, r=Number(ret.value)||0, s=Number(swr.value)||4; const target=e/(s/100);
+    const c=parseMoney(current.value), m=parseMoney(monthly.value), e=parseMoney(expenses.value), r=Number(ret.value)||0, s=Number(swr.value)||4; const target=e/(s/100);
     let val=c, months=0; const mr=monthlyRate(r); while(val<target && months<1200){val*=1+mr;val+=m;months++;} const years=months/12;
     document.querySelector('#fireTarget').textContent=EUR(target); document.querySelector('#fireYears').textContent=months>=1200?'—':years.toFixed(1)+' r.'; document.querySelector('#fireGap').textContent=EUR(Math.max(0,target-c));
   }
@@ -437,7 +476,7 @@ function initFire(){
 
 function initRetirement(){
   const age=document.querySelector('#retAge'); if(!age)return; const retire=document.querySelector('#retRetire'), savings=document.querySelector('#retSavings'), monthly=document.querySelector('#retMonthly'), rate=document.querySelector('#retReturn'); moneyInput(savings);moneyInput(monthly);
-  function render(){const a=Number(age.value)||0, ra=Number(retire.value)||0, s=Number(savings.value.replace(/\s/g,''))||0,m=Number(monthly.value.replace(/\s/g,''))||0,r=Number(rate.value)||0,y=Math.max(0,ra-a);const sch=investmentSchedule(s,m,r,y),end=sch.values.at(-1), income=end*.04/12;document.querySelector('#retYears').textContent=y;document.querySelector('#retValue').textContent=EUR(end);document.querySelector('#retIncome').textContent=EUR(income);}
+  function render(){const a=Number(age.value)||0, ra=Number(retire.value)||0, s=parseMoney(savings.value),m=parseMoney(monthly.value),r=Number(rate.value)||0,y=Math.max(0,ra-a);const sch=investmentSchedule(s,m,r,y),end=sch.values.at(-1), income=end*.04/12;document.querySelector('#retYears').textContent=y;document.querySelector('#retValue').textContent=EUR(end);document.querySelector('#retIncome').textContent=EUR(income);}
   [age,retire,savings,monthly,rate].forEach(el=>el.addEventListener('input',()=>{ render(); trackUsage(); }));
   document.addEventListener('languagechange',render);
   trackGA4Event('calculator_opened', { calculator_type: 'retirement' });

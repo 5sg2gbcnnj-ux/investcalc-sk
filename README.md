@@ -16,3 +16,9 @@ Legacy redirects:
 - /fire.html -> /fire-calculator/
 - /retirement.html -> /retirement-calculator/
 - /blog.html -> /blog/
+
+
+## V32
+- Fixed locale-safe parsing of money inputs in EN/SK modes across all calculators.
+- Values such as 50000, 50 000, 50,000 and 50.000 are parsed consistently.
+- Updated app.js cache-busting query to v=32.
