@@ -492,33 +492,54 @@ function initBlog(){
   const search=document.querySelector('#blogSearch');
   const grid=document.querySelector('#blogGrid');
   if(!search || !grid) return;
-  const cards=Array.from(grid.querySelectorAll('[data-category]'));
+
   const empty=document.querySelector('#blogEmpty');
+  const filterButtons=Array.from(document.querySelectorAll('.blog-filter[data-category]'));
   let category='all';
+
+  function getCards(){
+    return Array.from(document.querySelectorAll('.featured-card[data-category], #blogGrid [data-category]'));
+  }
+
   function updatePlaceholder(){
     const lang=currentLang()==='en'?'en':'sk';
     search.placeholder=search.dataset['placeholder'+(lang==='en'?'En':'Sk')] || search.placeholder;
   }
+
   function apply(){
-    const q=(search.value||'').trim().toLowerCase();
+    const q=(search.value||'').trim().toLocaleLowerCase();
     let shown=0;
-    cards.forEach(card=>{
-      const matchesCategory=category==='all'||card.dataset.category===category;
-      const hay=(card.dataset.search||'').toLowerCase()+' '+card.textContent.toLowerCase();
-      const matchesSearch=!q||hay.includes(q);
-      const visible=matchesCategory&&matchesSearch;
+
+    getCards().forEach(card=>{
+      const cardCategory=(card.getAttribute('data-category')||'').trim().toLowerCase();
+      const matchesCategory=category==='all' || cardCategory===category;
+      const hay=((card.getAttribute('data-search')||'')+' '+(card.textContent||'')).toLocaleLowerCase();
+      const matchesSearch=q==='' || hay.includes(q);
+      const visible=matchesCategory && matchesSearch;
+
+      // Force visibility directly so the filter cannot be overridden by cached CSS.
       card.hidden=!visible;
+      card.style.display=visible?'':'none';
+      card.setAttribute('aria-hidden', visible?'false':'true');
       if(visible) shown++;
     });
-    if(empty) empty.hidden=shown!==0;
+
+    if(empty){
+      empty.hidden=shown>0;
+      empty.style.display=shown>0?'none':'';
+    }
   }
-  document.querySelectorAll('.blog-filter').forEach(btn=>btn.addEventListener('click',()=>{
-    category=btn.dataset.category||'all';
-    document.querySelectorAll('.blog-filter').forEach(x=>x.classList.toggle('active',x===btn));
+
+  filterButtons.forEach(btn=>btn.addEventListener('click',()=>{
+    category=(btn.getAttribute('data-category')||'all').trim().toLowerCase();
+    filterButtons.forEach(x=>x.classList.toggle('active',x===btn));
     apply();
   }));
+
   search.addEventListener('input',apply);
+  search.addEventListener('search',apply);
   document.addEventListener('languagechange',()=>{updatePlaceholder();apply();});
+
   updatePlaceholder();
   apply();
 }
