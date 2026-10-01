@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://investcalc.eu/</loc><lastmod>2026-09-30</lastmod></url>
-  <url><loc>https://investcalc.eu/investment-calculator/</loc><lastmod>2026-09-30</lastmod></url>
-  <url><loc>https://investcalc.eu/etf-calculator/</loc><lastmod>2026-09-30</lastmod></url>
-  <url><loc>https://investcalc.eu/compound-interest-calculator/</loc><lastmod>2026-09-30</lastmod></url>
-  <url><loc>https://investcalc.eu/inflation-calculator/</loc><lastmod>2026-09-30</lastmod></url>
-  <url><loc>https://investcalc.eu/fire-calculator/</loc><lastmod>2026-09-30</lastmod></url>
-  <url><loc>https://investcalc.eu/retirement-calculator/</loc><lastmod>2026-09-30</lastmod></url>
-  <url><loc>https://investcalc.eu/blog/</loc><lastmod>2026-09-30</lastmod></url>
+  <url><loc>https://investcalc.eu/</loc><lastmod>2026-10-01</lastmod></url>
+  <url><loc>https://investcalc.eu/investment-calculator/</loc><lastmod>2026-10-01</lastmod></url>
+  <url><loc>https://investcalc.eu/etf-calculator/</loc><lastmod>2026-10-01</lastmod></url>
+  <url><loc>https://investcalc.eu/compound-interest-calculator/</loc><lastmod>2026-10-01</lastmod></url>
+  <url><loc>https://investcalc.eu/inflation-calculator/</loc><lastmod>2026-10-01</lastmod></url>
+  <url><loc>https://investcalc.eu/fire-calculator/</loc><lastmod>2026-10-01</lastmod></url>
+  <url><loc>https://investcalc.eu/retirement-calculator/</loc><lastmod>2026-10-01</lastmod></url>
+  <url><loc>https://investcalc.eu/blog/</loc><lastmod>2026-10-01</lastmod></url>
   <url><loc>https://investcalc.eu/article-dca.html</loc><lastmod>2026-09-30</lastmod></url>
   <url><loc>https://investcalc.eu/article-volatility.html</loc><lastmod>2026-09-30</lastmod></url>
   <url><loc>https://investcalc.eu/article-fire.html</loc><lastmod>2026-09-30</lastmod></url>
@@ -24,4 +24,12 @@
   <url><loc>https://investcalc.eu/article-compound-interest.html</loc><lastmod>2026-09-30</lastmod></url>
   <url><loc>https://investcalc.eu/article-etf-calculator.html</loc><lastmod>2026-09-30</lastmod></url>
   <url><loc>https://investcalc.eu/article-accumulating-vs-distributing.html</loc><lastmod>2026-09-30</lastmod></url>
+  <url><loc>https://investcalc.eu/article-10000-at-8-percent-20-years.html</loc><lastmod>2026-10-01</lastmod></url>
+  <url><loc>https://investcalc.eu/article-500-monthly-30-years.html</loc><lastmod>2026-10-01</lastmod></url>
+  <url><loc>https://investcalc.eu/article-etf-fee-impact-30-years.html</loc><lastmod>2026-10-01</lastmod></url>
+  <url><loc>https://investcalc.eu/article-compound-interest-monthly-contributions.html</loc><lastmod>2026-10-01</lastmod></url>
+  <url><loc>https://investcalc.eu/article-fire-number.html</loc><lastmod>2026-10-01</lastmod></url>
+  <url><loc>https://investcalc.eu/article-retirement-savings-target.html</loc><lastmod>2026-10-01</lastmod></url>
+  <url><loc>https://investcalc.eu/article-inflation-purchasing-power-20-years.html</loc><lastmod>2026-10-01</lastmod></url>
+  <url><loc>https://investcalc.eu/article-lump-sum-vs-monthly-investing.html</loc><lastmod>2026-10-01</lastmod></url>
 </urlset>

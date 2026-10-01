@@ -1,7 +1,12 @@
-InvestCalc.eu v28
+# InvestCalc.eu v30
 
-SEO and blog expansion.
+SEO content pack focused on high-intent investment-calculator topics.
 
-Changes: indexable blog, expanded bilingual article library, article structured data, updated sitemap, and AdSense-ready ad placements.
+Changes:
+- 8 new bilingual SEO articles
+- blog updated with new article cards and absolute links
+- internal related-reading links added to all 6 calculators
+- sitemap updated
+- style.css updated for related-content blocks
 
-Google Search Console performance data remains in Search Console; the static site does not pull GSC data directly.
+GA4, AdSense, SK/EN switching, mobile navigation and existing calculator logic are preserved.
