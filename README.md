@@ -1,12 +1,18 @@
-# InvestCalc.eu v30
+# InvestCalc.eu v31
 
-SEO content pack focused on high-intent investment-calculator topics.
+Technical SEO cleanup release.
 
 Changes:
-- 8 new bilingual SEO articles
-- blog updated with new article cards and absolute links
-- internal related-reading links added to all 6 calculators
-- sitemap updated
-- style.css updated for related-content blocks
+- Added permanent 301 redirects from legacy calculator/blog `.html` URLs to canonical directory URLs.
+- Removed the seven legacy root HTML duplicates after redirect rules were added.
+- Kept canonical calculator/blog URLs and article URLs unchanged.
+- Sitemap remains focused on canonical URLs only.
 
-GA4, AdSense, SK/EN switching, mobile navigation and existing calculator logic are preserved.
+Legacy redirects:
+- /investment.html -> /investment-calculator/
+- /etf.html -> /etf-calculator/
+- /compound.html -> /compound-interest-calculator/
+- /inflation.html -> /inflation-calculator/
+- /fire.html -> /fire-calculator/
+- /retirement.html -> /retirement-calculator/
+- /blog.html -> /blog/
