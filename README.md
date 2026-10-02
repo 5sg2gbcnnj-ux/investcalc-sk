@@ -1,4 +1,4 @@
-# InvestCalc.eu V34
+# InvestCalc.eu V36
 
 ## Fix
 - Blog topic filters and text search now use a robust, independent filtering routine.
@@ -20,3 +20,10 @@ Other HTML files only changed to load `/app.js?v=34`.
 - Added Funds to navigation and homepage.
 - Added the new canonical URL to `sitemap.xml`.
 - Bumped `app.js` cache version to v35 across HTML pages.
+
+
+## V36 – ETF fee-profit impact
+- Added a percentage metric to the ETF calculator showing the share of modeled potential profit lost to TER.
+- The percentage is calculated as the modeled TER cost divided by the modeled gross profit before fees.
+- ETF page sitemap lastmod updated to 2026-10-02.
+- Bumped app.js cache version to v36 across HTML pages.
