@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="sk">
+<head><script>document.documentElement.classList.add("i18n-boot");</script><style>html.i18n-boot body{visibility:hidden!important;}</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalkulačka fondov – InvestCalc.eu</title>
+<meta name="description" content="Kalkulačka fondov pre modelovanie vstupného, správcovského a výstupného poplatku, mesačných vkladov a dlhodobého vplyvu poplatkov na zisk.">
+<link rel="canonical" href="https://investcalc.eu/fund-calculator/"><meta name="robots" content="index,follow,max-image-preview:large">
+<script>(function(){try{var l=localStorage.getItem("investcalc_lang");if(l==="sk"||l==="en"){document.documentElement.lang=l;}}catch(e){}})();</script>
+<link rel="stylesheet" href="/style.css?v=30">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+<script src="/app.js?v=35" defer></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3648298940482146" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PC1F010733"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PC1F010733');</script>
+</head>
+<body data-page="funds">
+<header class="topbar"><div class="container nav"><a class="brand" href="/">Invest<span>Calc</span>.eu</a><button class="menu-toggle" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button><nav class="navlinks"><a data-nav="investment" href="/investment-calculator/" data-i18n="nav_investment">Investičná kalkulačka</a><a data-nav="etf" href="/etf-calculator/" data-i18n="nav_etf">ETF</a><a data-nav="funds" href="/fund-calculator/" data-i18n="nav_funds">Fondy</a><a data-nav="compound" href="/compound-interest-calculator/" data-i18n="nav_compound">Zložené úročenie</a><a data-nav="inflation" href="/inflation-calculator/" data-i18n="nav_inflation">Inflácia</a><a data-nav="fire" href="/fire-calculator/" data-i18n="nav_fire">FIRE</a><a data-nav="retirement" href="/retirement-calculator/" data-i18n="nav_retirement">Dôchodok</a><a data-nav="blog" href="/blog/" data-i18n="nav_blog">Blog</a></nav><div class="language-switcher" aria-label="Language switcher"><button type="button" class="lang-btn" data-lang="sk" aria-label="Slovensky" title="Slovensky" hidden>SK</button><button type="button" class="lang-btn" data-lang="en" aria-label="English" title="English">EN</button></div></div></header>
+<main class="container">
+<section class="pagehead"><span class="eyebrow" data-i18n="nav_funds">Fondy</span><h1 data-i18n="page_fund_title">Kalkulačka fondov</h1><p data-i18n="fund_intro">Modeluj počiatočnú a mesačnú investíciu do fondu a sleduj, ako vstupný, správcovský a výstupný poplatok ovplyvnia konečnú hodnotu a zisk.</p></section>
+<div class="ad" data-i18n="ad_space">Priestor pre reklamu</div>
+<section class="calculator">
+<div class="panel">
+<h3 data-i18n="inputs">Vstupy</h3>
+<div class="field"><label data-i18n="initial_investment">Počiatočná investícia (€)</label><input id="fundInitial" value="10 000" inputmode="decimal"></div>
+<div class="field"><label data-i18n="monthly_investment">Mesačná investícia (€)</label><input id="fundMonthly" value="300" inputmode="decimal"></div>
+<div class="field"><label data-i18n="gross_return">Očakávaný výnos pred poplatkami (%)</label><input id="fundRate" type="number" value="8" step="0.5"></div>
+<div class="field"><label data-i18n="fund_entry_fee">Vstupný poplatok (%)</label><input id="fundEntryFee" type="number" value="2" min="0" max="100" step="0.1"></div>
+<div class="field"><label data-i18n="fund_management_fee">Správcovský poplatok (% ročne)</label><input id="fundManagementFee" type="number" value="1.5" min="0" max="20" step="0.01"></div>
+<div class="field"><label data-i18n="fund_exit_fee">Výstupný poplatok (%)</label><input id="fundExitFee" type="number" value="0" min="0" max="100" step="0.1"></div>
+<div class="field"><label data-i18n="period_years">Obdobie (roky)</label><input id="fundYears" type="number" value="20" min="1" max="60"></div>
+</div>
+<div>
+<div class="results">
+<div class="metric"><div class="label" data-i18n="fund_before_fees">Bez poplatkov</div><div class="value" id="fundGross">–</div><div class="sub" data-i18n="model_value">Modelová hodnota</div></div>
+<div class="metric"><div class="label" data-i18n="fund_after_all_fees">Po všetkých poplatkoch</div><div class="value" id="fundNet">–</div><div class="sub" data-i18n="model_value">Modelová hodnota</div></div>
+<div class="metric warn"><div class="label" data-i18n="fund_total_fee_effect">Strata kvôli poplatkom</div><div class="value" id="fundFeeCost">–</div><div class="sub"><span data-i18n="fund_profit_share_lost">Podiel potenciálneho zisku stratený na poplatkoch</span>: <strong id="fundFeePct">–</strong></div></div>
+<div class="metric"><div class="label" data-i18n="fund_entry_effect">Vplyv vstupného poplatku</div><div class="value" id="fundEntryCost">–</div><div class="sub" data-i18n="fee_effect">Potenciálny efekt nákladu</div></div>
+<div class="metric"><div class="label" data-i18n="fund_management_effect">Vplyv správcovského poplatku</div><div class="value" id="fundManagementCost">–</div><div class="sub" data-i18n="fee_effect">Potenciálny efekt nákladu</div></div>
+<div class="metric"><div class="label" data-i18n="fund_exit_effect">Vplyv výstupného poplatku</div><div class="value" id="fundExitCost">–</div><div class="sub" data-i18n="fee_effect">Potenciálny efekt nákladu</div></div>
+<div class="metric"><div class="label" data-i18n="fund_profit_before_fees">Zisk bez poplatkov</div><div class="value" id="fundProfitBefore">–</div><div class="sub" data-i18n="model_value">Modelová hodnota</div></div>
+<div class="metric"><div class="label" data-i18n="fund_profit_after_fees">Zisk po poplatkoch</div><div class="value" id="fundProfitAfter">–</div><div class="sub" data-i18n="model_value">Modelová hodnota</div></div>
+<div class="metric"><div class="label" data-i18n="total_invested">Celkom vložené</div><div class="value" id="fundPaid">–</div><div class="sub" data-i18n="initial_plus_monthly">Počiatočná + mesačné vklady</div></div>
+</div>
+<div class="chartbox"><canvas id="fundChart"></canvas></div>
+<div class="notice" style="margin-top:14px" data-i18n="fund_notice">Model predpokladá, že vstupný poplatok sa odpočíta z počiatočnej aj každej mesačnej investície, správcovský poplatok sa zjednodušene odpočíta od očakávaného ročného výnosu a výstupný poplatok sa uplatní pri predaji. Graf pri každom roku zobrazuje hypotetickú hodnotu po výstupnom poplatku, ak by investor v danom roku vystúpil.</div>
+</div>
+</section>
+<section class="related-content"><div class="section-heading-inline"><div><span class="kicker" data-lang-content="sk">Súvisiace nástroje</span><span class="kicker" data-lang-content="en">Related tools</span><h2 data-lang-content="sk">Porovnaj poplatky a rast</h2><h2 data-lang-content="en">Compare fees and growth</h2></div></div><div class="related-grid"><a class="related-card" href="/etf-calculator/"><span data-lang-content="sk">ETF kalkulačka – vplyv TER</span><span data-lang-content="en">ETF calculator – TER impact</span><b aria-hidden="true">→</b></a><a class="related-card" href="/investment-calculator/"><span data-lang-content="sk">Investičná kalkulačka – tri scenáre výnosu</span><span data-lang-content="en">Investment calculator – three return scenarios</span><b aria-hidden="true">→</b></a><a class="related-card" href="/compound-interest-calculator/"><span data-lang-content="sk">Zložené úročenie</span><span data-lang-content="en">Compound interest</span><b aria-hidden="true">→</b></a></div></section>
+</main>
+<footer class="footer"><div class="container">Modelový výpočet. Nie je investičným poradenstvom.</div></footer>
+</body></html>
